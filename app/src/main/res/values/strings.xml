@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Mareu</string>
+    <string name="Peach">peach</string>
+    <string name="Luigi">Luigi</string>
+    <string name="Daidy">daidy</string>
+    <string name="Wario">wario</string>
+    <string name="Yoshi">yoshi</string>
+    <string name="Bowser">bowser</string>
+    <string name="Mario">mario</string>
+    <string name="Goomba">goomba</string>
+    <string name="MaReu">MaReu</string>
+</resources>
