@@ -7,7 +7,7 @@ import java.util.List;
 import fr.example.mareu.model.Collaborateurs;
 import fr.example.mareu.model.Meeting;
 
-public abstract class DummyReunionsGenerator {
+public abstract class DummyCollaborateursGenerator {
 
     public static List<Collaborateurs> COLLABORATEUR_LAMZONE = Arrays.asList(
             new Collaborateurs("Karim", "Benzema", "IdCol-1", "Karim.Benzema@Lamzone.com"),
@@ -29,5 +29,7 @@ public abstract class DummyReunionsGenerator {
         return new ArrayList<>(COLLABORATEUR_LAMZONE);
     }
 
-
+    public static List<Meeting> generateReunion() {
+        return new ArrayList<>(generateReunion());
+    }
 }

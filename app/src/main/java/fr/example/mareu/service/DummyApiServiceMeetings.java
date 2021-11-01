@@ -6,9 +6,9 @@ import java.util.Map;
 
 import fr.example.mareu.model.Meeting;
 
-public class DummyApiServiceReunions {
+public class DummyApiServiceMeetings implements ApiServiceMeetings {
 
-    private List<Meeting> reunions = DummyReunionsGenerator.generateReunion();
+    private List<Meeting> reunions = DummyCollaborateursGenerator.generateReunion();
 
     private Map <String, Date> mDate;
 
