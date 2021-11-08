@@ -2,14 +2,14 @@ package fr.example.mareu.model;
 
 import java.io.Serializable;
 
-public class Collaborateurs implements Serializable {
+public class Workmate implements Serializable {
 
     String mFirstName;
     String mName;
     String mId;
     String mEmail;
 
-    public Collaborateurs(String firstName,String name, String id,String email){
+    public Workmate(String firstName, String name, String id, String email){
         this.mFirstName= firstName;
         this.mName= name;
         this.mId= id;

@@ -5,9 +5,9 @@ import java.util.List;
 import fr.example.mareu.model.Meeting;
 
 public interface ApiServiceMeetings {
-    List<Meeting> getListReunions();
+    List<Meeting> getMeetingList();
 
-    void createReunion(Meeting meeting);
+    void createMeeting(Meeting meeting);
 
-    void deleteReunionItem(Meeting meeting);
+    void deleteMeetingItem(Meeting meeting);
 }

@@ -1,5 +1,6 @@
 package fr.example.mareu.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -8,22 +9,21 @@ import fr.example.mareu.model.Meeting;
 
 public class DummyApiServiceMeetings implements ApiServiceMeetings {
 
-    private List<Meeting> reunions = DummyCollaborateursGenerator.generateReunion();
+    private List<Meeting> meetings = DummyMeetingsGenerator.generateMeeting();
 
-    private Map <String, Date> mDate;
 
     @Override
-    public List<Meeting> getListReunions() {
-        return reunions;
+    public List<Meeting> getMeetingList() {
+        return meetings;
     }
 
     @Override
-    public void createReunion(Meeting meeting) {
-        reunions.add(meeting);
+    public void createMeeting(Meeting meeting) {
+        meetings.add(meeting);
     }
 
     @Override
-    public void deleteReunionItem(Meeting meeting) {
-        reunions.remove(meeting);
+    public void deleteMeetingItem(Meeting meeting) {
+        meetings.remove(meeting);
     }
 }
