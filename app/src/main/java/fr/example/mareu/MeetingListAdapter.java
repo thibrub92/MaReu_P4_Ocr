@@ -8,43 +8,31 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 
 import java.util.List;
 
 import fr.example.mareu.model.Meeting;
 
-public class MeetingListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHolder> {
 
-private List<Meeting> mListMeeting;
+    private List<Meeting> mListMeeting;
 
-public FloatingActionButton mDeleteButton;
-
-
-// constructeur de l'adapteur
-public MeetingListAdapter (List<Meeting> listMeeting){
-
-    mListMeeting = listMeeting;
-}
-
-    public void updateReunions(@NonNull final List<Meeting> meetings) {
-        this.mListMeeting = meetings;
-}
-//Crée les vues appelées par le layout manager
+    public MeetingListAdapter (List<Meeting> listMeeting){
+        mListMeeting = listMeeting;
+    }
 
     @NonNull
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.activity_main, parent, false);
-        return new ViewHolder(view);
-}
+    public MeetingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.activity_main_item, parent, false);
+        return new MeetingListViewHolder(view);
+    }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-     Meeting meeting = mListMeeting.get(position);
-     holder.itemView(mListMeeting[position]);
-}
+    public void onBindViewHolder(@NonNull MeetingListViewHolder holder, int position) {
+        Meeting meeting = mListMeeting.get(position);
+      //  holder.itemView(mListMeeting[position]);
+    }
 
     @Override
     public int getItemCount() {
@@ -66,11 +54,6 @@ public MeetingListAdapter (List<Meeting> listMeeting){
 
 
 
-
-
-
-
-}
 
 
 
