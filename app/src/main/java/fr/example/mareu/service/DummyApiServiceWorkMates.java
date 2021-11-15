@@ -16,7 +16,7 @@ public class DummyApiServiceWorkMates implements ApiServiceWorkMate {
     }
 
     @Override
-    public Map<String, Workmate> createWorkmateLis() {
+    public Map<String, Workmate> createWorkmateList() {
         return null;
     }
 }

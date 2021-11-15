@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
+import java.util.Map;
 
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
@@ -69,9 +70,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void createRoom(Room room) {
-
-        }
+        public Map<String, Room> createPlaceRoom() {
+            return null; }
 
         @Override
         public void deleteRoomItem(Room room) {

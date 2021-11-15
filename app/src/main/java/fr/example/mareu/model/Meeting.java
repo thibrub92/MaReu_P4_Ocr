@@ -49,9 +49,7 @@ public class Meeting implements Serializable {
         this.participants = participants;
     }
 
-    public int getRoom() {
-        return room;
-    }
+    public Room getRoom() { return room; }
 
     public void setRoom(Room room) {
         this.room = room;

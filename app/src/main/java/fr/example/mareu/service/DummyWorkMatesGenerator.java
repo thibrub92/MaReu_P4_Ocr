@@ -9,6 +9,7 @@ import fr.example.mareu.model.Workmate;
 public abstract class DummyWorkMatesGenerator {
 
     public static List<Workmate> WORKMATE_LAMZONE = Arrays.asList(
+
             new Workmate("Karim", "Benzema", "IdCol-1", "Karim.Benzema@Lamzone.com"),
             new Workmate("Eden", "Hazard", "IdCol-2", "Eden.Hazard@Lamzone.com"),
             new Workmate("Junior", "Vinicius", "IdCol-3", "Junio.Vinicius@Lamzone.com"),
