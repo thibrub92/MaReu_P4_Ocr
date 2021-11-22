@@ -12,8 +12,13 @@ import fr.example.mareu.model.Workmate;
 public abstract class DummyMeetingsGenerator {
 
     public static List<Meeting> MEETING_LAMZONE = Arrays.asList(
-            new Meeting(0,"sujet", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, Calendar.getInstance().getTime()
-            ));
+
+       // creation des differentes reunions
+            new Meeting(0,"sujet", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, Calendar.getInstance().getTime()),
+                    new Meeting(0,"sujet", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, Calendar.getInstance().getTime()),
+            new Meeting(0,"sujet", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, Calendar.getInstance().getTime())
+
+            );
 
 
     static List<Meeting> generateMeeting()
