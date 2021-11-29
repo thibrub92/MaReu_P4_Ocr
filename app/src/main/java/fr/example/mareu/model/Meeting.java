@@ -1,6 +1,7 @@
 package fr.example.mareu.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +58,12 @@ public class Meeting implements Serializable {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getFormattedDate(){
+        String mFormatHour = "HH'h'mm";
+        SimpleDateFormat formatHour = new SimpleDateFormat(mFormatHour);
+        return formatHour.format(this.date);
     }
 
     public void setDate(Date date) {

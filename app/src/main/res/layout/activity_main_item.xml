@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageViewId"
         android:layout_width="60dp"
-        android:layout_height="59dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_room_luigi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,8 +19,8 @@
 
     <TextView
         android:id="@+id/title_reunion"
-        android:layout_width="220dp"
-        android:layout_height="28dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/itemView_mail"
@@ -31,24 +31,27 @@
 
     <TextView
         android:id="@+id/itemView_mail"
-        android:layout_width="220dp"
-        android:layout_height="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:textColor="@color/greyDark"
         android:textSize="12sp"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/delete_button_itemView"
         app:layout_constraintStart_toEndOf="@id/imageViewId"
+        app:layout_constraintTop_toBottomOf="@id/title_reunion"
         tools:text="maxime@lamzone.com, alex@lamzone.com,paul@lamzone.com" />
 
     <ImageView
         android:id="@+id/delete_button_itemView"
-        android:layout_width="52dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/delete"
-        app:layout_constraintBottom_toBottomOf="@+id/itemView_mail"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title_reunion"
+        app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/black" />
 
 

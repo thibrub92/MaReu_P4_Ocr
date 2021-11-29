@@ -19,7 +19,7 @@ public class Workmate implements Serializable {
     public String getFirstName(){
         return mFirstName;
     }
-    public void setFirstName( String firstName){mFirstName = firstName;}
+    public void setFirstName(String firstName){mFirstName = firstName;}
 
     public String getName(){
         return mName;

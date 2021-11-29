@@ -1,4 +1,4 @@
-package fr.example.mareu;
+package fr.example.mareu.event;
 
 import fr.example.mareu.model.Meeting;
 
