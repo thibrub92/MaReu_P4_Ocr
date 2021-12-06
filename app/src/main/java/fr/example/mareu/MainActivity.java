@@ -3,16 +3,14 @@ package fr.example.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import android.view.View;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
-
+import fr.example.mareu.databinding.ActivityMainBinding;
 import fr.example.mareu.event.DeleteMeetingEvent;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.service.ApiServiceMeetings;
@@ -22,32 +20,35 @@ import fr.example.mareu.DI.DI;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
     private ApiServiceMeetings apiServiceMeetings;
-    private FloatingActionButton addMeeting;
-    private RecyclerView recyclerView;
     private MeetingListAdapter adapter;
     private List<Meeting> meetingList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         apiServiceMeetings = DI.getApiServiceMeetings();
         meetingList= apiServiceMeetings.getMeetingList();
-        recyclerView = findViewById(R.id.recycler_meeting);
         adapter= new MeetingListAdapter(meetingList,this);
 
-
-
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
-    }
+        binding.recyclerMeeting.setLayoutManager(linearLayoutManager);
+        binding.recyclerMeeting.setAdapter(adapter);
 
+        binding.addMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateMeetingActivity.class));
+            }
+        });
+    }
     private void initList() {
         meetingList = apiServiceMeetings.getMeetingList();
-        recyclerView.setAdapter(new MeetingListAdapter(meetingList,this));
+        binding.recyclerMeeting.setAdapter(new MeetingListAdapter(meetingList,this));
     }
 
     @Override

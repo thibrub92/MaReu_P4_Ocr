@@ -6,13 +6,14 @@
     android:layout_height="match_parent">
 
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/input_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
+        android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_text_long"
         android:drawableTint="@color/greyDark"
         android:hint="Sujet"
@@ -20,11 +21,9 @@
         android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/input_people"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,6 +31,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
         android:drawableStart="@drawable/ic_account_circle"
+        android:drawablePadding="10dp"
         android:drawableTint="@color/greyDark"
         android:hint="Participants"
         android:inputType="numberDecimal"
@@ -39,16 +39,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_subject"
         app:layout_constraintEnd_toEndOf="parent">
+    </EditText>
 
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/input_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
+        android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_map_marker"
         android:drawableTint="@color/greyDark"
         android:hint="Salle"
@@ -57,26 +57,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_people"
         app:layout_constraintEnd_toEndOf="parent">
+    </EditText>
 
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/input_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
+        android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_clock_time_five_outline"
         android:drawableTint="@color/greyDark"
-        android:hint="Temps"
+        android:hint="Heure"
         android:inputType="time"
         android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_room"
         app:layout_constraintEnd_toEndOf="parent">
+    </EditText>
 
-    </com.google.android.material.textfield.TextInputEditText>
+    <EditText
+        android:id="@+id/input_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/calendar"
+        android:drawableTint="@color/black"
+        android:hint="Date"
+        android:inputType="time"
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_time"
+        app:layout_constraintEnd_toEndOf="parent">
+    </EditText>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ok_button"
