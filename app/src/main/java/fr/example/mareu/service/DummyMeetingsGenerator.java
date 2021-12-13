@@ -15,14 +15,14 @@ public abstract class DummyMeetingsGenerator {
     public static List<Meeting> MEETING_LAMZONE = Arrays.asList(
 
 
-            new Meeting(0,"sujet Mario", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, getDate(10,30  )),
-            new Meeting(1,"sujet Luigi", DummyWorkMatesGenerator.generateWorkmate(), Room.LUIGI, getDate(11,30)),
-            new Meeting(2,"sujet Peach", DummyWorkMatesGenerator.generateWorkmate(), Room.PEACH,getDate(12,30)),
-            new Meeting(3,"sujet Wario", DummyWorkMatesGenerator.generateWorkmate(), Room.WARIO, getDate(13,30)),
-            new Meeting(4,"sujet Daisy", DummyWorkMatesGenerator.generateWorkmate(), Room.DAISY, getDate(14,30)),
-            new Meeting(5,"sujet Bowser", DummyWorkMatesGenerator.generateWorkmate(), Room.BOWSER,getDate(15,30)),
-            new Meeting(6,"sujet Yoshi", DummyWorkMatesGenerator.generateWorkmate(), Room.YOSHI,getDate(16,30)),
-            new Meeting(7,"sujet Goomba", DummyWorkMatesGenerator.generateWorkmate(), Room.GOOMBA, getDate(17,30))
+            new Meeting("sujet Mario", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, getDate(10,30  )),
+            new Meeting("sujet Luigi", DummyWorkMatesGenerator.generateWorkmate(), Room.LUIGI, getDate(11,30)),
+            new Meeting("sujet Peach", DummyWorkMatesGenerator.generateWorkmate(), Room.PEACH,getDate(12,30)),
+            new Meeting("sujet Wario", DummyWorkMatesGenerator.generateWorkmate(), Room.WARIO, getDate(13,30))
+            //new Meeting("sujet Daisy", DummyWorkMatesGenerator.generateWorkmate(), Room.DAISY, getDate(14,30)),
+            //new Meeting("sujet Bowser", DummyWorkMatesGenerator.generateWorkmate(), Room.BOWSER,getDate(15,30)),
+            //new Meeting("sujet Yoshi", DummyWorkMatesGenerator.generateWorkmate(), Room.YOSHI,getDate(16,30)),
+            //new Meeting("sujet Goomba", DummyWorkMatesGenerator.generateWorkmate(), Room.GOOMBA, getDate(17,30))
     );
 
 

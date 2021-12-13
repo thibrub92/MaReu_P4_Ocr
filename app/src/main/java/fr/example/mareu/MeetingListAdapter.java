@@ -39,10 +39,10 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
     @Override
     public void onBindViewHolder(@NonNull MeetingListViewHolder holder, int position) {
         Meeting meeting = mListMeeting.get(position);
-        List<Workmate> workmateList= meeting.getParticipants();
-        StringBuilder workmateString= new StringBuilder();
+        List<Workmate> workmateList = meeting.getParticipants();
+        StringBuilder workmateString = new StringBuilder();
 
-        for (Workmate w : workmateList){
+        for (Workmate w : workmateList) {
             workmateString.append(w.getEmail()).append(" , ");
         }
 
@@ -60,10 +60,11 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 
             @Override
             public void onClick(View view) {
-              EventBus.getDefault().post( new DeleteMeetingEvent(meeting));
+                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return mListMeeting.size();

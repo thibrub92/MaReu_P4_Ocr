@@ -7,8 +7,6 @@ import java.util.List;
 
 public class Meeting implements Serializable {
 
-    private int id;
-
     private String subject;
 
     private List<Workmate> participants;
@@ -18,21 +16,15 @@ public class Meeting implements Serializable {
     private Date date;
 
 
-    public Meeting(int id, String subject, List<Workmate> participants, Room room, Date date) {
-        this.id = id;
+    public Meeting(String subject, List<Workmate> participants, Room room, Date date) {
+
         this.subject = subject;
         this.participants = participants;
         this.room = room;
         this.date = date;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getSubject() {
         return subject;
