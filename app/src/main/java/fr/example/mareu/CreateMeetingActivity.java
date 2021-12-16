@@ -1,25 +1,16 @@
 package fr.example.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
 
 import android.app.DatePickerDialog;
-import android.app.job.JobParameters;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-
-import javax.security.auth.Subject;
+import java.util.List;
 
 import fr.example.mareu.DI.DI;
 import fr.example.mareu.databinding.ActivityCreateMeetingBinding;
@@ -27,15 +18,13 @@ import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
 import fr.example.mareu.model.Workmate;
 import fr.example.mareu.service.ApiServiceMeetings;
-import fr.example.mareu.service.ApiServiceWorkMate;
-import fr.example.mareu.service.DummyWorkMatesGenerator;
+
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
     private ActivityCreateMeetingBinding binding;
-    private JobParameters jobParameters;
     private ApiServiceMeetings apiServiceMeetings;
-    private ArrayList<Workmate> workMateList = new ArrayList<>();
+    private List<Workmate> workMateList = new ArrayList<>();
 
 
     @Override
@@ -66,9 +55,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
                   }
         });
 
-        binding.multiSpinnerWorkmate.setAdapter((new ArrayAdapter<Workmate>(this, android.R.layout.simple_list_item_2,  Workmate.class(workMateList)));
+        binding.multiSpinnerWorkmate.setAdapter(new ArrayAdapter<Workmate>(this, android.R.layout.simple_list_item_1, workMateList));
 
-        binding.spinnerRoom.setAdapter(new ArrayAdapter<Room>(this, android.R.layout.simple_list_item_2 , Room.values()));
+        binding.spinnerRoom.setAdapter(new ArrayAdapter<Room>(this, android.R.layout.simple_list_item_1 , Room.values()));
 
         binding.okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +71,11 @@ public class CreateMeetingActivity extends AppCompatActivity {
         if (canCreateMeeting()) {
             Room selectedRoom = (Room) binding.spinnerRoom.getSelectedItem();
             Workmate selectedWorkmate= (Workmate) binding.multiSpinnerWorkmate.getSelectedItem();
+            workMateList.add(selectedWorkmate);
 
             Meeting meeting = new Meeting(
                     binding.inputSubject.getText().toString(),
-                    selectedWorkmate,    //  new ArrayList<>(),
+                    workMateList,
                     selectedRoom,
                     Calendar.getInstance().getTime()
             );
@@ -96,7 +86,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
 
     private boolean canCreateMeeting(){
-        // 1- Vérfier tous les champs sont remplis
+        //  Vérification que tous les champs sont remplis
 
         if(binding.inputSubject.getText().toString().isEmpty()){
             Toast.makeText(this,"*Sujet Obligatoire",Toast.LENGTH_SHORT).show();
@@ -120,5 +110,3 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
         return  true; }
 }
-// 2- crée un meeting via l'API
-// 3- faire un PressBack automatique pour revenir sur l'écran principal
