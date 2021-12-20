@@ -1,5 +1,7 @@
 package fr.example.mareu.model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Workmate implements Serializable {
@@ -8,6 +10,7 @@ public class Workmate implements Serializable {
     String mName;
     String mId;
     String mEmail;
+    boolean isSelected;
 
     public Workmate(String firstName, String name, String id, String email){
         this.mFirstName= firstName;
@@ -36,4 +39,9 @@ public class Workmate implements Serializable {
     }
     public void setEmail(String email){mEmail = email;}
 
+    @NonNull
+    @Override
+    public String toString() {
+        return mFirstName + mName + " (" + mEmail + ") " ;
+    }
 }

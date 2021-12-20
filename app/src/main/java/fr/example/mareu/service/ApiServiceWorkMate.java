@@ -9,5 +9,4 @@ public interface ApiServiceWorkMate {
 
     List<Workmate> getWorkmateList();
 
-    Map <String, Workmate> createWorkmateList();
 }

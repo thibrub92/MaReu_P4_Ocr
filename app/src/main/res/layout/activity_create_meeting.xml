@@ -15,7 +15,7 @@
         android:layout_marginRight="15dp"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_text_long"
-        android:drawableTint="@color/greyDark"
+        android:drawableTint="@color/black"
         android:hint="Sujet"
         android:inputType="textAutoCorrect"
         android:padding="15dp"
@@ -23,23 +23,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/multiSpinner_workmate"
+    <Button
+        android:id="@+id/button_selectedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
+        android:backgroundTint="@color/darkBlue"
         android:drawableStart="@drawable/ic_account_circle"
         android:drawablePadding="10dp"
-        android:drawableTint="@color/greyDark"
+        android:drawableTint="@color/black"
         android:hint="Participants"
         android:inputType="numberDecimal"
         android:padding="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_subject"
         app:layout_constraintEnd_toEndOf="parent">
-    </androidx.appcompat.widget.AppCompatSpinner>
+    </Button>
 
     <TextView
         android:id="@+id/txt_room_title"
@@ -52,7 +53,7 @@
         android:text="Choisir une salle"
         android:textColor="@color/greyDark"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/multiSpinner_workmate"
+        app:layout_constraintTop_toBottomOf="@+id/button_selectedButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -73,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent">
     </androidx.appcompat.widget.AppCompatSpinner>
 
-    <EditText
+    <TimePicker
         android:id="@+id/input_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,8 +89,9 @@
         android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_room"
-        app:layout_constraintEnd_toEndOf="parent">
-    </EditText>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:timePickerMode="spinner">
+    </TimePicker>
 
     <EditText
         android:id="@+id/input_date"

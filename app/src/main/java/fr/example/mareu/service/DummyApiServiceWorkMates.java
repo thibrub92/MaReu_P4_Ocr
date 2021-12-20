@@ -12,11 +12,7 @@ public class DummyApiServiceWorkMates implements ApiServiceWorkMate {
 
     @Override
     public List<Workmate> getWorkmateList() {
-        return null;
+        return workmates;
     }
 
-    @Override
-    public Map<String, Workmate> createWorkmateList() {
-        return null;
-    }
 }
