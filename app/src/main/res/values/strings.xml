@@ -10,4 +10,7 @@
     <string name="Goomba">goomba</string>
     <string name="MaReu">MaReu</string>
     <string name="Daisy">Daisy</string>
+    <string name="date_filter">Trier par dates</string>
+    <string name="hour_filter">Trier par heures</string>
+    <string name="no_filter">Sans filtre</string>
 </resources>

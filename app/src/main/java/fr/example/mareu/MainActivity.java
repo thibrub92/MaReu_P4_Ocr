@@ -1,11 +1,15 @@
 package fr.example.mareu;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -24,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private ApiServiceMeetings apiServiceMeetings;
     private MeetingListAdapter adapter;
     private List<Meeting> meetingList;
+    private Filter mFilter;
+
+    private enum Filter {
+        filter_hour, filter_date, no_filter
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         apiServiceMeetings = DI.getApiServiceMeetings();
-        meetingList= apiServiceMeetings.getMeetingList();
-        adapter= new MeetingListAdapter(meetingList,this);
+        meetingList = apiServiceMeetings.getMeetingList();
+        adapter = new MeetingListAdapter(meetingList, this);
 
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         binding.recyclerMeeting.setLayoutManager(linearLayoutManager);
         binding.recyclerMeeting.setAdapter(adapter);
 
@@ -46,35 +55,74 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initList() {
         meetingList = apiServiceMeetings.getMeetingList();
-        binding.recyclerMeeting.setAdapter(new MeetingListAdapter(meetingList,this));
+        binding.recyclerMeeting.setAdapter(new MeetingListAdapter(meetingList, this));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-       initList();
+        initList();
     }
 
     @Override
-    public void onStart () {
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop () {
+    public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDeleteMeeting (DeleteMeetingEvent event){
+    public void onDeleteMeeting(DeleteMeetingEvent event) {
         apiServiceMeetings.deleteMeetingItem(event.meeting);
         initList();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.trier_date:
+                Toast.makeText(this, "Trier par dates", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.trier_hour:
+                Toast.makeText(this, "Trier par heures", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.without_filter:
+                Toast.makeText(this, "Sans filtre", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        public void noFilter () {
+            mFilter = Filter.no_filter;
+        }
+        public void filterDate () {
+            mFilter = Filter.filter_date;
+        }
+        public void filterHour () {
+            mFilter = Filter.filter_hour;
+        }
+    }
 }
+
+
+
 
 
 

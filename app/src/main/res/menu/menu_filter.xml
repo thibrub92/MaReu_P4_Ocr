@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <group android:id="@+id/menu_filter">
+
+        <item
+            android:id="@+id/filter_group"
+            android:icon="@drawable/filter"
+            android:title="Options de tri"
+            app:showAsAction="always" />
+
+        <item android:id="@+id/trier_date"
+            app:showAsAction="always"
+            android:title="@string/date_filter" />
+
+        <item android:id="@+id/trier_hour"
+            app:showAsAction="always"
+            android:title="@string/hour_filter"/>
+
+        <item android:id="@+id/without_filter"
+            app:showAsAction="always"
+            android:title="@string/no_filter"/>
+
+    </group>
+
+</menu>
