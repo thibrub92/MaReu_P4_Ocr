@@ -8,5 +8,4 @@ import fr.example.mareu.model.Workmate;
 public interface ApiServiceWorkMate {
 
     List<Workmate> getWorkmateList();
-
 }

@@ -3,7 +3,6 @@ package fr.example.mareu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,5 +21,4 @@ public class MeetingListViewHolder extends RecyclerView.ViewHolder {
         itemViewMail = itemView.findViewById(R.id.itemView_mail);
         deleteButton = itemView.findViewById(R.id.delete_button_itemView);
     }
-
 }

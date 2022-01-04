@@ -2,7 +2,7 @@ package fr.example.mareu.service;
 
 
 import java.util.List;
-import java.util.Map;
+
 
 import fr.example.mareu.model.Workmate;
 
@@ -14,5 +14,4 @@ public class DummyApiServiceWorkMates implements ApiServiceWorkMate {
     public List<Workmate> getWorkmateList() {
         return workmates;
     }
-
 }

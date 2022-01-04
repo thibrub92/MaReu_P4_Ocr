@@ -25,19 +25,18 @@ public enum Room{
     @ColorRes
     public int colorRes;
 
-
-   private Room(@StringRes int nameRes, @DrawableRes int iconRes, @ColorRes int colorRes){
+    private Room(@StringRes int nameRes, @DrawableRes int iconRes, @ColorRes int colorRes){
         this.nameRes= nameRes;
         this.iconRes=iconRes;
-        this.colorRes=colorRes;
-    }
+        this.colorRes=colorRes; }
 
     @StringRes
     public int getNameRes(){
         return nameRes;
     }
 
-    @DrawableRes int getIconRes(){
+    @DrawableRes
+    int getIconRes(){
         return iconRes;
     }
 
@@ -45,7 +44,5 @@ public enum Room{
     public int getColorRes(){
         return colorRes;
     }
-
-
 }
 

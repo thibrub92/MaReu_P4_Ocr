@@ -14,7 +14,6 @@ public abstract class DummyMeetingsGenerator {
 
     public static List<Meeting> MEETING_LAMZONE = Arrays.asList(
 
-
             new Meeting("sujet Mario", DummyWorkMatesGenerator.generateWorkmate(), Room.MARIO, getDate(10,30  )),
             new Meeting("sujet Luigi", DummyWorkMatesGenerator.generateWorkmate(), Room.LUIGI, getDate(11,30)),
             new Meeting("sujet Peach", DummyWorkMatesGenerator.generateWorkmate(), Room.PEACH,getDate(12,30)),
@@ -25,7 +24,6 @@ public abstract class DummyMeetingsGenerator {
             //new Meeting("sujet Goomba", DummyWorkMatesGenerator.generateWorkmate(), Room.GOOMBA, getDate(17,30))
     );
 
-
     static List<Meeting> generateMeeting()
     {
         return new ArrayList<>(MEETING_LAMZONE);
@@ -35,8 +33,5 @@ public abstract class DummyMeetingsGenerator {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        return calendar.getTime();
-    }
-
-
+        return calendar.getTime(); }
 }

@@ -16,8 +16,7 @@ public class Workmate implements Serializable {
         this.mFirstName= firstName;
         this.mName= name;
         this.mId= id;
-        this.mEmail= email;
-    }
+        this.mEmail= email; }
 
     public String getFirstName(){
         return mFirstName;

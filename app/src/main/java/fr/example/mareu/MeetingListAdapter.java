@@ -2,31 +2,31 @@ package fr.example.mareu;
 
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import org.greenrobot.eventbus.EventBus;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import fr.example.mareu.event.DeleteMeetingEvent;
 import fr.example.mareu.model.Meeting;
+import fr.example.mareu.model.Room;
 import fr.example.mareu.model.Workmate;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHolder> {
 
     private List<Meeting> mListMeeting;
     private Context mContext;
+    private List<Room> filterRooms = new ArrayList<>();
+    private boolean[] roomFiltersSelected = new boolean[8];
+  //  private final MeetingListAdapter meetingListAdapter;
 
     public MeetingListAdapter(List<Meeting> listMeeting, Context context) {
         mListMeeting = listMeeting;
         mContext = context;
+        filterRooms = filterRooms;
     }
 
     @NonNull
@@ -60,8 +60,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
-            }
+                EventBus.getDefault().post(new DeleteMeetingEvent(meeting)); }
         });
     }
 

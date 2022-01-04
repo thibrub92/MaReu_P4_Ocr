@@ -19,14 +19,12 @@ public int mHour;
 
     public void DateHour (int date, int hour) {
         this.mDate = date;
-        this.mHour = hour;
-    }
+        this.mHour = hour; }
 
     public int getmDate(){
         return mDate;
     }
     public void setmDate( int date){mDate= date; }
-
 
     public int getmHour(){
         return mHour;
@@ -36,5 +34,4 @@ public int mHour;
     public Calendar getCalendar() {
         return mCalendar;
     }
-
 }

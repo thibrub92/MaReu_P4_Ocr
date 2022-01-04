@@ -8,23 +8,15 @@ import java.util.List;
 public class Meeting implements Serializable {
 
     private String subject;
-
     private List<Workmate> participants;
-
     private Room room;
-
     private Date date;
 
-
     public Meeting(String subject, List<Workmate> participants, Room room, Date date) {
-
         this.subject = subject;
         this.participants = participants;
         this.room = room;
-        this.date = date;
-    }
-
-
+        this.date = date; }
 
     public String getSubject() {
         return subject;
@@ -55,8 +47,7 @@ public class Meeting implements Serializable {
     public String getFormattedDate(){
         String mFormatHour = "HH'h'mm";
         SimpleDateFormat formatHour = new SimpleDateFormat(mFormatHour);
-        return formatHour.format(this.date);
-    }
+        return formatHour.format(this.date); }
 
     public void setDate(Date date) {
         this.date = date;

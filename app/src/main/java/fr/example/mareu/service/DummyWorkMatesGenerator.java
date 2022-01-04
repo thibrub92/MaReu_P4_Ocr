@@ -3,7 +3,6 @@ package fr.example.mareu.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import fr.example.mareu.model.Workmate;
 
 public abstract class DummyWorkMatesGenerator {
@@ -12,7 +11,7 @@ public abstract class DummyWorkMatesGenerator {
 
             new Workmate("Karim", "Benzema", "IdCol-1", "Karim.Benzema@Lamzone.com"),
             new Workmate("Eden", "Hazard", "IdCol-2", "Eden.Hazard@Lamzone.com"),
-            new Workmate("Junior", "Vinicius", "IdCol-3", "Junio.Vinicius@Lamzone.com"),
+            new Workmate("Vinicius", "Junior", "IdCol-3", "Junio.Vinicius@Lamzone.com"),
             new Workmate("Luka", "Modric", "IdCol-4", "Luka.Modric@Lamzone.com"),
             new Workmate("Tony", "Kroos", "IdCol-5", "Tony.Kroos@Lamzone.com"),
             new Workmate("Federico", "Valverde", "IdCol-6", "Federico.Valverde@Lamzone.com"),
@@ -25,9 +24,8 @@ public abstract class DummyWorkMatesGenerator {
             new Workmate("Marco", "Asensio", "IdCol-13", "Marco.Ascensio.com"),
             new Workmate("Thibaut", "Courtois", "IdCol-14", "Thibaut.Courtois@Lamzone.com")
     );
+
     static List<Workmate> generateWorkmate() {
         return new ArrayList<>(WORKMATE_LAMZONE);
     }
-
-
 }

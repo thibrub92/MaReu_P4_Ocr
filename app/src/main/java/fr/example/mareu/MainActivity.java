@@ -28,11 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ApiServiceMeetings apiServiceMeetings;
     private MeetingListAdapter adapter;
     private List<Meeting> meetingList;
-    private Filter mFilter;
 
-    private enum Filter {
-        filter_hour, filter_date, no_filter
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,48 +47,42 @@ public class MainActivity extends AppCompatActivity {
         binding.addMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CreateMeetingActivity.class));
-            }
+                startActivity(new Intent(MainActivity.this, CreateMeetingActivity.class)); }
         });
     }
 
     private void initList() {
         meetingList = apiServiceMeetings.getMeetingList();
-        binding.recyclerMeeting.setAdapter(new MeetingListAdapter(meetingList, this));
-    }
+        binding.recyclerMeeting.setAdapter(new MeetingListAdapter(meetingList, this)); }
 
     @Override
     protected void onResume() {
         super.onResume();
         initList();
     }
-
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDeleteMeeting(DeleteMeetingEvent event) {
         apiServiceMeetings.deleteMeetingItem(event.meeting);
         initList();
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_filter, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.trier_date:
                 Toast.makeText(this, "Trier par dates", Toast.LENGTH_SHORT).show();
@@ -105,18 +95,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.without_filter:
                 Toast.makeText(this, "Sans filtre", Toast.LENGTH_SHORT).show();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
-        }
-        public void noFilter () {
-            mFilter = Filter.no_filter;
-        }
-        public void filterDate () {
-            mFilter = Filter.filter_date;
-        }
-        public void filterHour () {
-            mFilter = Filter.filter_hour;
         }
     }
 }

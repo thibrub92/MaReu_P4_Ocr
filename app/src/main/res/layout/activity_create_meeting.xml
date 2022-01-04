@@ -31,10 +31,10 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
-        android:backgroundTint="@color/darkBlue"
+        android:backgroundTint="@color/violet"
         android:drawableStart="@drawable/ic_account_circle"
         android:drawablePadding="10dp"
-        android:drawableTint="@color/black"
+        android:drawableTint="@color/white"
         android:hint="Participants"
         android:inputType="numberDecimal"
         android:padding="20dp"
@@ -86,8 +86,8 @@
         app:layout_constraintEnd_toEndOf="parent">
     </androidx.appcompat.widget.AppCompatSpinner>
 
-    <EditText
-        android:id="@+id/input_time"
+    <Button
+        android:id="@+id/input_time_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -95,7 +95,7 @@
         android:layout_marginRight="15dp"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_clock_time_five_outline"
-        android:drawableTint="@color/greyDark"
+        android:backgroundTint="@color/violet"
         android:hint="Heure"
         android:inputType="time"
         android:padding="15dp"
@@ -103,25 +103,25 @@
         app:layout_constraintTop_toBottomOf="@id/spinner_room"
         app:layout_constraintEnd_toEndOf="parent"
         android:timePickerMode="spinner">
-    </EditText>
+    </Button>
 
-    <EditText
-        android:id="@+id/input_date"
+    <Button
+        android:id="@+id/input_date_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
         android:drawablePadding="10dp"
-        android:drawableStart="@drawable/calendar"
-        android:drawableTint="@color/black"
+        android:backgroundTint="@color/violet"
         android:hint="Date"
         android:inputType="time"
         android:padding="15dp"
+        android:drawableStart="@drawable/calendar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_time"
+        app:layout_constraintTop_toBottomOf="@id/input_time_button"
         app:layout_constraintEnd_toEndOf="parent">
-    </EditText>
+    </Button>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ok_button"

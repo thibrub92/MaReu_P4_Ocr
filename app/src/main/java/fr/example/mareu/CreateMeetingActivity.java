@@ -16,6 +16,7 @@ import java.sql.Time;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import fr.example.mareu.DI.DI;
@@ -35,6 +36,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private ApiServiceWorkMate apiServiceWorkMate;
     private List<Workmate> workMateList = new ArrayList<>();
     private List<Workmate> presentWorkmateList = new ArrayList<>();
+    private Calendar selectedCalendar= Calendar.getInstance();
 
 
     @Override
@@ -46,44 +48,53 @@ public class CreateMeetingActivity extends AppCompatActivity {
         apiServiceMeetings = DI.getApiServiceMeetings();
         apiServiceWorkMate = DI.getApiServiceWorkMate();
 
-        binding.inputDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-               if(hasFocus){
-                Calendar mcurrentDate = Calendar.getInstance();
-
-                int mYear= mcurrentDate.get(Calendar.YEAR);
-                int mMonth= mcurrentDate.get(Calendar.MONTH);
-                int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog mDatePicker;
-                mDatePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        month = month +1; // ou month += 1 ;
-                        binding.inputDate.setText(dayOfMonth + "/"+ month+  "/" + year);
-                    }
-                }, mYear, mMonth, mDay);
-                mDatePicker.show();
-            }}
-        });
-
-        binding.inputTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.inputDateButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if(hasFocus){
-                int hour, minute ;
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                       String time= String.format(Locale.getDefault(),
-                                "%02dh%02d",
-                                hourOfDay, minute);
-                       binding.inputTime.setText(time);
-                    }
-                },9,0,true);
-                mTimePicker.show();
+                    Calendar mcurrentDate = Calendar.getInstance();
+
+                    int mYear= mcurrentDate.get(Calendar.YEAR);
+                    int mMonth= mcurrentDate.get(Calendar.MONTH);
+                    int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog mDatePicker;
+                    mDatePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                            selectedCalendar.set(Calendar.YEAR,year);
+                            selectedCalendar.set(Calendar.MONTH,month);
+                            selectedCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+
+                            month = month +1; // ou month += 1 ;
+                            String date = String.format(Locale.getDefault(),
+                                    "%02d/%02d/%d",
+                                    dayOfMonth, month, year);
+                            binding.inputDateButton.setText(dayOfMonth + "/" + month +  "/" + year);
+                        }
+                    }, mYear, mMonth, mDay);
+                    mDatePicker.show();
+                }}
+        });
+
+        binding.inputTimeButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                            String time= String.format(Locale.getDefault(),
+                                    "%02dh%02d",
+                                    hourOfDay, minute);
+                            binding.inputTimeButton.setText(time);
+
+                            selectedCalendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                            selectedCalendar.set(Calendar.MINUTE,minute);
+                        }
+                    },9,0,true);
+                    mTimePicker.show();
                 }}
         });
 
@@ -99,6 +110,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         binding.spinnerRoom.setAdapter(new ArrayAdapter<Room>(this, android.R.layout.simple_list_item_1 , Room.values()));
 
         binding.okButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 createMeeting();
@@ -114,8 +126,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
                     binding.inputSubject.getText().toString(),
                     presentWorkmateList,
                     selectedRoom,
-                    Calendar.getInstance().getTime()
-            );
+                    selectedCalendar.getTime());
+
             apiServiceMeetings.createMeeting(meeting);
             onBackPressed();
         }
@@ -132,24 +144,36 @@ public class CreateMeetingActivity extends AppCompatActivity {
             Toast.makeText(this,"*Choix salle obligatoire",Toast.LENGTH_SHORT).show();
             return false;
         }
-          if(presentWorkmateList.isEmpty()){
-           Toast.makeText(this,"*Choisir participants",Toast.LENGTH_SHORT).show();
-           return false;
+        if(presentWorkmateList.isEmpty()){
+            Toast.makeText(this,"*Choisir participants",Toast.LENGTH_SHORT).show();
+            return false;
         }
-
-        if(binding.inputDate.getText().toString().isEmpty()){
+        if(binding.inputDateButton.getText().toString().isEmpty()){
             Toast.makeText(this,"*date obligatoire",Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (binding.inputTime.getText().toString().isEmpty()){
+        if (binding.inputTimeButton.getText().toString().isEmpty()){
             Toast.makeText(this,"*heure obligatoire",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(selectedCalendar.getTimeInMillis()< Calendar.getInstance().getTimeInMillis()){
+            Toast.makeText(this,"*Choisir une date non intérieur",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!isRoomAvailable()){
+            Toast.makeText(this,"*Salle non disponible",Toast.LENGTH_SHORT).show();
             return false;
         }
         return  true;
     }
 
-    private void showParticipantsDialog(List<Workmate> workMateList) {
+    private boolean isRoomAvailable(){
+        return apiServiceMeetings.isMeetingCanBeCreated(
+                selectedCalendar.getTime(),
+                (Room) binding.spinnerRoom.getSelectedItem());
+    }
 
+    private void showParticipantsDialog(List<Workmate> workMateList) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choisir participants");
 
@@ -164,23 +188,26 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
 
         builder.setMultiChoiceItems(emailList,booleanList, new DialogInterface.OnMultiChoiceClickListener() {
+
             @Override
             public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
                 Workmate workmate = workMateList.get(index);
+
                 if (isChecked) {
                     presentWorkmateList.add(workmate);
                 } else {
-                    presentWorkmateList.remove(workmate);
-                }
+                    presentWorkmateList.remove(workmate); }
             }
         });
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 StringBuilder builder = new StringBuilder();
+
                 for(Workmate w : presentWorkmateList){
-                    builder.append(w.getFirstName()+ " " + w.getName() + "-");
+                    builder.append(w.getFirstName()).append(" ").append(w.getName()).append(" - ");
                 }
                 binding.txtParticipant.setText(builder.toString());
             }
@@ -189,6 +216,5 @@ public class CreateMeetingActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancel", null);
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 }
