@@ -20,8 +20,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
     private List<Meeting> mListMeeting;
     private Context mContext;
     private List<Room> filterRooms = new ArrayList<>();
-    private boolean[] roomFiltersSelected = new boolean[8];
-  //  private final MeetingListAdapter meetingListAdapter;
+    //private boolean[] roomFiltersSelected = new boolean[8];
+
 
     public MeetingListAdapter(List<Meeting> listMeeting, Context context) {
         mListMeeting = listMeeting;

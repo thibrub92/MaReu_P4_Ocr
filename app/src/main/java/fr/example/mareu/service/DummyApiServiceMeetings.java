@@ -1,12 +1,8 @@
 package fr.example.mareu.service;
 
-
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-
-import fr.example.mareu.R;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
 
@@ -30,7 +26,7 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
     }
 
     @Override
-    public boolean isMeetingCanBeCreated(Date date , Room room) {
+    public boolean isMeetingCanBeCreated(Date date, Room room) {
         for (Meeting m : meetings) {
             Date meetingDate = m.getDate();
             long timeDifference = meetingDate.getTime() - date.getTime();
@@ -41,39 +37,39 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
                     return false;
                 }
             }
-        } return true;
+        }
+        return true;
     }
 
     @Override
-    public List<Meeting> filterDateHour(List<Meeting> meetings, List<Room> rooms, Date date) {
-        return filterDateHour (filterDateHour(meetings, rooms), date);
-    }
+    public List<Meeting> filterDateHour(Date beginDate, Date endDate) {
+        List<Meeting> filteredMeetings = new ArrayList<>();
+        //  String dateToDisplay = DateAndTimeConverter.dateConverter(year, month, day);
 
-    @Override
-    public List<Room> filterRooms(List<Meeting> meetings, List<Room> rooms, Date date) {
-        return filterRooms(List<Meeting> meetings,List<Room>rooms,date);
-
-        public void initializeListCheckBox() {
-
-            filterRooms(filterRooms()) = Arrays.asList(
-                    Objects.requireNonNull(filterRooms(Room)).findViewById(R.id.checkbox_filter_mario),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_luigi),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_peach),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_daisy),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_wario),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_yoshi),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_bowser),
-                    Objects.requireNonNull(filterRooms()).findViewById(R.id.checkbox_filter_goomba)
-            );
-
-            // Initialiser liste CheckBox
-            for(int i = 0; i < filterRooms(List<Room>).size(); i++){
-                filterRooms().get(i).setChecked(roomFiltersSelected[i]);
+        for(Meeting m : meetings){
+           // check que la date "m" est entre les 2 date debut/fin
+            if(m.getDate().after(beginDate) && m.getDate().before(endDate)){
+                filteredMeetings.add(m);
             }
         }
+        return filteredMeetings;
     }
+
     @Override
-    public List<Meeting> withoutFilter(List<Meeting> meetings) {
-        return withoutFilter(null);
+    public List<Meeting> filterRooms(List<Room> rooms) {
+        List<Meeting> filteredMeetings = new ArrayList<>();
+
+        for(Meeting m : meetings){
+            if(rooms.contains(m.getRoom())){
+                filteredMeetings.add(m);
+            }
+        }
+        return filteredMeetings;
+    }
+
+    @Override
+    public List<Meeting> withoutFilter() {
+        return meetings;
     }
 }
+

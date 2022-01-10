@@ -15,11 +15,11 @@ public interface ApiServiceMeetings {
 
     boolean isMeetingCanBeCreated(Date date , Room room);
 
-    List<Meeting> filterDateHour (List<Meeting> meetings, List<Room> rooms, Date date);
+    List<Meeting> filterDateHour (Date beginDate , Date EndDate);
 
-    List<Room> filterRooms (List<Meeting> meetings, List<Room> rooms, Date date);
+    List<Meeting> filterRooms (List<Room> rooms);
 
-    List<Meeting> withoutFilter (List<Meeting> meetings);
+    List<Meeting> withoutFilter();
 }
 
 

@@ -48,39 +48,38 @@ public class CreateMeetingActivity extends AppCompatActivity {
         apiServiceMeetings = DI.getApiServiceMeetings();
         apiServiceWorkMate = DI.getApiServiceWorkMate();
 
-        binding.inputDateButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.inputDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus){
-                    Calendar mcurrentDate = Calendar.getInstance();
+            public void onClick(View view) {
+                Calendar mcurrentDate = Calendar.getInstance();
 
-                    int mYear= mcurrentDate.get(Calendar.YEAR);
-                    int mMonth= mcurrentDate.get(Calendar.MONTH);
-                    int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
+                int mYear= mcurrentDate.get(Calendar.YEAR);
+                int mMonth= mcurrentDate.get(Calendar.MONTH);
+                int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                    DatePickerDialog mDatePicker;
-                    mDatePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                            selectedCalendar.set(Calendar.YEAR,year);
-                            selectedCalendar.set(Calendar.MONTH,month);
-                            selectedCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                DatePickerDialog mDatePicker;
+                mDatePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        selectedCalendar.set(Calendar.YEAR,year);
+                        selectedCalendar.set(Calendar.MONTH,month);
+                        selectedCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
 
-                            month = month +1; // ou month += 1 ;
-                            String date = String.format(Locale.getDefault(),
-                                    "%02d/%02d/%d",
-                                    dayOfMonth, month, year);
-                            binding.inputDateButton.setText(dayOfMonth + "/" + month +  "/" + year);
-                        }
-                    }, mYear, mMonth, mDay);
-                    mDatePicker.show();
-                }}
+                        month = month +1; // ou month += 1 ;
+                        String date = String.format(Locale.getDefault(),
+                                "%02d/%02d/%d",
+                                dayOfMonth, month, year);
+                        binding.inputDateButton.setText(date);
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePicker.show();
+            }
         });
 
-        binding.inputTimeButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.inputTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus){
+            public void onClick(View view) {
+
                     TimePickerDialog mTimePicker;
                     mTimePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
                         @Override
@@ -95,7 +94,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                         }
                     },9,0,true);
                     mTimePicker.show();
-                }}
+                }
         });
 
         workMateList = apiServiceWorkMate.getWorkmateList();
