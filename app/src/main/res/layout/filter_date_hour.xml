@@ -18,7 +18,7 @@
         android:layout_marginTop="150dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_edit_filter_date_2_start_date"
+            android:id="@+id/input_edit_filter_start_date"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:inputType="date"
@@ -34,7 +34,7 @@
         app:boxBackgroundColor="#ECECF1">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_edit_filter_date_2_end_date"
+            android:id="@+id/input_edit_filter_end_date"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:inputType="date"

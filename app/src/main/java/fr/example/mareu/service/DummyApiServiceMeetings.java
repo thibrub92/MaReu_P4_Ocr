@@ -44,7 +44,6 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
     @Override
     public List<Meeting> filterDateHour(Date beginDate, Date endDate) {
         List<Meeting> filteredMeetings = new ArrayList<>();
-        //  String dateToDisplay = DateAndTimeConverter.dateConverter(year, month, day);
 
         for(Meeting m : meetings){
            // check que la date "m" est entre les 2 date debut/fin

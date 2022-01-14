@@ -4,8 +4,6 @@ package fr.example.mareu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -15,27 +13,22 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.material.textfield.TextInputEditText;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import fr.example.mareu.databinding.ActivityMainBinding;
 import fr.example.mareu.event.DeleteMeetingEvent;
-import fr.example.mareu.model.DateHour;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
-import fr.example.mareu.model.Workmate;
 import fr.example.mareu.service.ApiServiceMeetings;
 import fr.example.mareu.DI.DI;
 
@@ -47,11 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private ApiServiceMeetings apiServiceMeetings;
     private MeetingListAdapter adapter;
     private List<Meeting> meetingList;
-
-    private TextInputEditText beginDate;
-    private TextInputEditText endDate;
-    private CheckBox checkBox;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.trier_date:
-                // Toast.makeText(this, "Trier par dates", Toast.LENGTH_SHORT).show();
                 showDatesDialog();
                 return true;
 
@@ -174,34 +161,106 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDatesDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        Calendar filteredCalandar =  Calendar.getInstance();
+        LayoutInflater inflater = getLayoutInflater();
 
-        String[] dateList = new String[Calendar.getInstance().getTime()];
-        builder.setView(inflater.inflate(R.layout.filter_date_hour, null));
+        View view = inflater.inflate(R.layout.filter_date_hour, null);
+        builder.setView(view);
         builder.setTitle("Choisir une période");
+        EditText beginEditDate = view.findViewById(R.id.input_edit_filter_start_date);
+        EditText endEditDate = view.findViewById(R.id.input_edit_filter_end_date);
 
-        builder.setPositiveButton("valider", (DialogInterface dialog, int which) -> {
+        beginEditDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Calendar calendar = apiServiceMeetings.filterDateHour(selectedCalandar);
+            public void onClick(View view) {
+                Calendar mcurrentDate = Calendar.getInstance();
 
+                int mYear= mcurrentDate.get(Calendar.YEAR);
+                int mMonth= mcurrentDate.get(Calendar.MONTH);
+                int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                if (checkBox.isChecked() && beginDate.getText().length() > 0 && endDate.getText().length() > 0) {
-                //.//()beginDate.getText().toString(),
-                endDate.getText().toString();
-                initList();
+                DatePickerDialog mDatePicker;
+                mDatePicker = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                        month = month +1; // ou month += 1 ;
+                        String date = String.format(Locale.getDefault(),
+                                "%02d/%02d/%d",
+                                dayOfMonth, month, year);
+                        beginEditDate.setText(date);
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePicker.show();
             }
-
         });
 
-        builder.setNegativeButton("Annuler", (DialogInterface dialog, int which) -> {
+        endEditDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentDate = Calendar.getInstance();
 
+                int mYear= mcurrentDate.get(Calendar.YEAR);
+                int mMonth= mcurrentDate.get(Calendar.MONTH);
+                int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
+                DatePickerDialog mDatePicker;
+                mDatePicker = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                        month = month +1; // ou month += 1 ;
+                        String date = String.format(Locale.getDefault(),
+                                "%02d/%02d/%d",
+                                dayOfMonth, month, year);
+                        endEditDate.setText(date);
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePicker.show();
+            }
         });
-        return null;
-        }
+
+        builder.setPositiveButton("valider", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) { }
+        });
+
+        builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) { }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(beginEditDate.getText().toString().isEmpty()){
+                    Toast.makeText(view.getContext(),"*Merci de choisir une date de début",Toast.LENGTH_SHORT).show();
+                }else if (endEditDate.getText().toString().isEmpty()){
+                    Toast.makeText(view.getContext(),"*Merci de choisir une date de fin",Toast.LENGTH_SHORT).show();
+                }else{
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date beginDate = dateFormat.parse(beginEditDate.getText().toString());
+                        Date endDate = dateFormat.parse(endEditDate.getText().toString());
+                        if(endDate.after(beginDate)){
+                            List<Meeting> filteredMeetings = apiServiceMeetings.filterDateHour(beginDate, endDate);
+                            initList(filteredMeetings);
+                            dialog.dismiss();
+
+                        }else {
+                            Toast.makeText(view.getContext(),"*Merci de choisir une date de debut avant la date de fin",Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(view.getContext(),"*Format date non valide",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
+}
+
+
 
 
 
