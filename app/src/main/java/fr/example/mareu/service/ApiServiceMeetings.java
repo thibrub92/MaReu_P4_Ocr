@@ -20,6 +20,8 @@ public interface ApiServiceMeetings {
     List<Meeting> filterRooms (List<Room> rooms);
 
     List<Meeting> withoutFilter();
+
+    DummyApiServiceMeetings newInstance();
 }
 
 

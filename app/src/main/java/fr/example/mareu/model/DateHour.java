@@ -17,6 +17,7 @@ public int mHour;
     SimpleDateFormat formatDate = new SimpleDateFormat(mFormatDate);
     SimpleDateFormat formatHour = new SimpleDateFormat(mFormatHour);
 
+
     public void DateHour (int date, int hour) {
         this.mDate = date;
         this.mHour = hour; }
