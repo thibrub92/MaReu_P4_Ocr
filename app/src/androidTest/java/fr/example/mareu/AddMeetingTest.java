@@ -24,14 +24,11 @@ import fr.example.mareu.DI.DI;
 public class AddMeetingTest {
 
 
-    private MainActivity mActivity;
+
     private int ITEM_MEETING_COUNT;
     @Before
     public void setUp() {
         ITEM_MEETING_COUNT = DI.getApiServiceMeetings().getMeetingList().size();
-
-        MainActivity mainActivity =  mActivity.onOptionsItemSelected();
-        assertThat(mainActivity, notNullValue());
     }
 
     @Test
@@ -54,7 +51,6 @@ public class AddMeetingTest {
 
         onView(withId(R.id.list_participants_recycler))
                 .check(matches(isDisplayed()));
-
     }
 
     @Test
@@ -65,8 +61,6 @@ public class AddMeetingTest {
 
         onView(withText(R.string.Yoshi))
                 .perform(click());
-
-        Espresso.pressBack();
     }
 
     @Test
@@ -75,10 +69,8 @@ public class AddMeetingTest {
         onView(withId(R.id.input_time_button))
                 .perform(click());
 
-
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
                 .perform(PickerActions.setTime(10,30));
-
 
         onView(withText("OK"))
                 .perform(click());
@@ -128,43 +120,48 @@ public class AddMeetingTest {
 
     @Test
     public void CreateMeetingReunionTest() {
-
+//SUJET
         onView(withId(R.id.input_subject))
                 .perform(typeText("sujet test"));
 
         closeSoftKeyboard();
 
+//PARTICIPANTS
+        onView(withId(R.id.button_selectedParticipant))
+                .perform(click());
+
+        onView(withId(R.id.list_participants_recycler))
+                .check(matches(isDisplayed()));
+//SALLE
         onView(withId(R.id.spinner_room))
                 .perform(click());
 
 
-        onView(withText(R.string.room_1))
+        onView(withText(R.string.Yoshi))
+                .perform(click());
+//DATE
+        onView(withId(R.id.input_date_button))
                 .perform(click());
 
-        // Click on "Date selection" TextInputEditText
-        onView(withId(R.id.text_input_date))
-                .perform(click());
-
-        // Select date 25/11/2020 on DatePicker
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
-                .perform(PickerActions.setDate(2020, 11, 30));
+                .perform(PickerActions.setDate(2022, 01, 30));
 
-        // Confirm start date (close DatePickerDialog)
         onView(withText("OK"))
                 .perform(click());
-
-        // Click on "Start hour selection" TextInputEditText
-        onView(withId(R.id.text_input_hour_start))
+//HEURE
+        onView(withId(R.id.input_time_button))
                 .perform(click());
 
-        // Select start hour (H24 format) : 10h30
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
                 .perform(PickerActions.setTime(10,30));
 
-        // Confirm selection
         onView(withText("OK"))
                 .perform(click());
-
-
+//VALIDATION
+        onView(withId(R.id.ok_button))
+                .perform(click());
+// CHECK AJOUT REUNION
+        onView(withId(R.id.recycler_meeting))
+                .check(???(ITEM_MEETING_COUNT+1));
     }
 }

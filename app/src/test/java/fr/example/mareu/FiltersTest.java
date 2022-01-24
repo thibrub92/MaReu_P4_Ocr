@@ -28,7 +28,6 @@ public class FiltersTest {
 
         private int ITEMS_COUNT = 24;
         private int ITEMS_COUNT_SALLE = 4;
-        private int ITEMS_COUNT_DEUX_SALLES = 8;
         private int ITEMS_COUNT_DATE = 12;
         private int ITEMS_COUNT_SALLE_DATE = 2;
 
@@ -37,9 +36,9 @@ public class FiltersTest {
         @Before
         public void setup() {
 
-//            ApiServiceRoom = DI..getNewInstanceServiceReunions();
+//            ApiServiceRoom = DI.getNewInstanceServiceMeeting();
 //            ApiServiceMeetings = DI.getApiServiceMeetings().createMeeting(Meeting);
-//            ApiServiceWorkMate = DI.getApiServiceWorkMate().getNewInstanceServiceCollaborateurs();
+//
         }
 
 
