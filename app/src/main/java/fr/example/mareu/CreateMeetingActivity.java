@@ -12,21 +12,20 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import java.sql.Time;
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Locale;
 import fr.example.mareu.DI.DI;
 import fr.example.mareu.databinding.ActivityCreateMeetingBinding;
-import fr.example.mareu.model.DateHour;
+
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
 import fr.example.mareu.model.Workmate;
 import fr.example.mareu.service.ApiServiceMeetings;
 import fr.example.mareu.service.ApiServiceWorkMate;
+import fr.example.mareu.utils.DateTimeConverter;
 
 
 public class CreateMeetingActivity extends AppCompatActivity {
@@ -64,12 +63,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                         selectedCalendar.set(Calendar.YEAR,year);
                         selectedCalendar.set(Calendar.MONTH,month);
                         selectedCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-
-                        month = month +1; // ou month += 1 ;
-                        String date = String.format(Locale.getDefault(),
-                                "%02d/%02d/%d",
-                                dayOfMonth, month, year);
-                        binding.inputDateButton.setText(date);
+                        binding.inputDateButton.setText(DateTimeConverter.getFormattedDate(year, month, dayOfMonth));
                     }
                 }, mYear, mMonth, mDay);
                 mDatePicker.show();
@@ -84,13 +78,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
                     mTimePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                            String time= String.format(Locale.getDefault(),
-                                    "%02dh%02d",
-                                    hourOfDay, minute);
-                            binding.inputTimeButton.setText(time);
-
                             selectedCalendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
                             selectedCalendar.set(Calendar.MINUTE,minute);
+                            binding.inputTimeButton.setText(DateTimeConverter.getFormattedTime(hourOfDay, minute));
                         }
                     },9,0,true);
                     mTimePicker.show();

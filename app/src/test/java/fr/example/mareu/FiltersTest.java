@@ -7,73 +7,48 @@ import org.junit.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import fr.example.mareu.DI.DI;
+import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
+import fr.example.mareu.service.ApiServiceMeetings;
+import fr.example.mareu.service.ApiServiceRoom;
+import fr.example.mareu.service.ApiServiceWorkMate;
 import fr.example.mareu.service.DummyApiServiceMeetings;
 
 public class FiltersTest {
 
     private DummyApiServiceMeetings mDummyApiServiceMeetings;
 
-    @Before
-    public void setupService() {
-        mDummyApiServiceMeetings = mDummyApiServiceMeetings.newInstance();
-    }
+    public class DummyApiServiceReunionsTest {
+        private ApiServiceRoom serviceRoom;
+        private ApiServiceMeetings serviceMeetings;
+        private ApiServiceWorkMate serviceWorkMate;
 
+        private int ITEMS_COUNT = 24;
+        private int ITEMS_COUNT_SALLE = 4;
+        private int ITEMS_COUNT_DEUX_SALLES = 8;
+        private int ITEMS_COUNT_DATE = 12;
+        private int ITEMS_COUNT_SALLE_DATE = 2;
 
-    @Test
-    public void filterListByRoomWithSuccess(){
+        private String filterDate = "31/01/2022";
 
-        mDummyApiServiceMeetings.getMeetingList();
+        @Before
+        public void setup() {
 
-        mDummyApiServiceMeetings.filterRooms(Room);
-
-        mDummyApiServiceMeetings.filterRooms();
-
-        assertEquals(4, mDummyApiServiceMeetings.getMeetingList().size());
-        for(int i = 0; i < mDummyApiServiceMeetings.filterRooms(Room).size(); i++){
-            assertEquals("Test", mDummyApiServiceMeetings.getListToDisplay().get(i).getMeetingRoom());
+//            ApiServiceRoom = DI..getNewInstanceServiceReunions();
+//            ApiServiceMeetings = DI.getApiServiceMeetings().createMeeting(Meeting);
+//            ApiServiceWorkMate = DI.getApiServiceWorkMate().getNewInstanceServiceCollaborateurs();
         }
-    }
+
 
     @Test
-    public void filterListByDateOption1WithSuccess(){
-
-        DummyApiServiceMeetings.initListMeetingTest();
-
-        String filter = "18/01/2022";
-
-        mDummyApiServiceMeetings.filterRooms();
-
-
-
+    public void filterRooms() {
+        List<Room> salles = ApiServiceRoom.getRoomList().subList(0, 2);
+        List<Meeting> meetings = mDummyApiServiceMeetings.getMeetingList();
+        List<Meeting> meeting = mDummyApiServiceMeetings.filterRooms(meetings, );
+        assertEquals(meeting.size(), meeting);
     }
-
-    @Test
-    public void filterListByDateOption2WithSuccess(){
-
-        mDummyApiServiceMeetings.filterDateHour();
-
-        String filterStart = "01/01/2022";
-        String filterEnd = "31/01/2022";
-
-
-        mDummyApiServiceMeetings.filterDateHour(filterListByDateOption1WithSuccess(), filterListByDateOption2WithSuccess());
-
-        assertEquals(5, mDummyApiServiceMeetings.getMeetingList().size());
-        try {
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date startDate = dateFormat.parse(filterStart);
-            Date endDate = dateFormat.parse(filterEnd);
-
-            for(int i = 0; i < listMeetingsFragment.getListToDisplay().size(); i++){
-                Date currentDate = dateFormat.parse(listMeetingsFragment.getListToDisplay().get(i).getDate());
-
-                assertTrue(currentDate.compareTo(startDate) >= 0 && currentDate.compareTo(endDate) <= 0);
-            }
-        } catch (ParseException exception) {
-            exception.printStackTrace();
-        }
-    }
+}
 }

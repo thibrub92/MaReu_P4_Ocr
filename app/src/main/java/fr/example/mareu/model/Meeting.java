@@ -47,7 +47,8 @@ public class Meeting implements Serializable {
     public String getFormattedDate(){
         String mFormatHour = "HH'h'mm";
         SimpleDateFormat formatHour = new SimpleDateFormat(mFormatHour);
-        return formatHour.format(this.date); }
+        return formatHour.format(this.date);
+    }
 
     public void setDate(Date date) {
         this.date = date;

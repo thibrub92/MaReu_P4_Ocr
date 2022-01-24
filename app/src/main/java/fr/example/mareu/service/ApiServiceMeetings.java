@@ -18,10 +18,6 @@ public interface ApiServiceMeetings {
     List<Meeting> filterDateHour (Date beginDate , Date EndDate);
 
     List<Meeting> filterRooms (List<Room> rooms);
-
-    List<Meeting> withoutFilter();
-
-    DummyApiServiceMeetings newInstance();
 }
 
 

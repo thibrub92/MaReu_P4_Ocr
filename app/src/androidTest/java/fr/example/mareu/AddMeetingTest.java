@@ -1,50 +1,64 @@
 package fr.example.mareu;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.espresso.contrib.PickerActions;
 import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import fr.example.mareu.DI.DI;
-import fr.example.mareu.model.DateHour;
+
 
 public class AddMeetingTest {
 
 
     private MainActivity mActivity;
     private int ITEM_MEETING_COUNT;
-
-    @Rule
-    public final MeetingListAdapter<MainActivity> mMainActivityRule = new MeetingListAdapter(MeetingListAdapter);
-
     @Before
-    public void setUp(){
+    public void setUp() {
         ITEM_MEETING_COUNT = DI.getApiServiceMeetings().getMeetingList().size();
 
-        MainActivity mainActivity = mMainActivityRule.getItemId();
-        ViewMatchers.assertThat(mainActivity, Matchers.notNullValue());
-        mainActivity.onOptionsItemSelected(MainActivity.class(), mainActivity.getMenuInflater();
+        MainActivity mainActivity =  mActivity.onOptionsItemSelected();
+        assertThat(mainActivity, notNullValue());
     }
 
     @Test
-    public void CreateMeetingReunionTest() {
+    public void checkInputSubject(){
+
+        onView(withId(R.id.input_subject))
+                .perform(click());
+
+        onView(withText("Sujet Test"))
+                .perform(click());
+
+        Espresso.pressBack();
+    }
+
+    @Test
+    public void checkIfClickOnParticipants() {
+
+        onView(withId(R.id.button_selectedParticipant))
+                .perform(click());
+
+        onView(withId(R.id.list_participants_recycler))
+                .check(matches(isDisplayed()));
 
     }
 
     @Test
-    public void checkRoomSelected(){
+    public void checkRoomSelected() {
 
         onView(withId(R.id.spinner_room))
                 .perform(click());
@@ -56,56 +70,35 @@ public class AddMeetingTest {
     }
 
     @Test
-    public void checkDateSelected(){
+    public void checkHourSelection() {
+
+        onView(withId(R.id.input_time_button))
+                .perform(click());
+
+
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(10,30));
+
+
+        onView(withText("OK"))
+                .perform(click());
+    }
+
+    @Test
+    public void checkDateSelection() {
 
         onView(withId(R.id.input_date_button))
                 .perform(click());
 
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
-                .perform(DatePicker.setmDate(15, 01, 2022));
+                .perform(PickerActions.setDate(2022, 02, 15));
 
         onView(withText("OK"))
                 .perform(click());
     }
 
     @Test
-    public void checkIf_HourSelection_updateHourTextInputEditText(){
-
-        onView(withId(R.id.input_time_button))
-                .perform(click());
-
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
-                .perform(DateHour.setmHour(10,30));
-
-        onView(withText("OK"))
-                .perform(click());
-
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
-                .perform(DatePicker.setmHour(11,30));
-
-        onView(withText("OK"))
-                .perform(click());
-    }
-
-    @Test
-    public void checkIf_clickOnParticipantsTextInputEditText_displayListEmployeesFragment(){
-
-        onView(withId(R.id.button_selectedParticipant))
-                .perform(click());
-
-        onView(withId(R.id.list_participants_recycler))
-                .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void checkButtonOk(){
-
-        onView(withId(R.id.ok_button)).check(matches(not(isEnabled())))
-         .perform(click());
-    }
-
-    @Test
-    public void checkIfAllDialogIsCompleted(){
+    public void checkIfAllDialogIsCompleted() {
 
         onView(withId(R.id.input_subject))
                 .perform(click());
@@ -131,5 +124,47 @@ public class AddMeetingTest {
                 .perform(click());
 
         Espresso.pressBack();
+    }
+
+    @Test
+    public void CreateMeetingReunionTest() {
+
+        onView(withId(R.id.input_subject))
+                .perform(typeText("sujet test"));
+
+        closeSoftKeyboard();
+
+        onView(withId(R.id.spinner_room))
+                .perform(click());
+
+
+        onView(withText(R.string.room_1))
+                .perform(click());
+
+        // Click on "Date selection" TextInputEditText
+        onView(withId(R.id.text_input_date))
+                .perform(click());
+
+        // Select date 25/11/2020 on DatePicker
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2020, 11, 30));
+
+        // Confirm start date (close DatePickerDialog)
+        onView(withText("OK"))
+                .perform(click());
+
+        // Click on "Start hour selection" TextInputEditText
+        onView(withId(R.id.text_input_hour_start))
+                .perform(click());
+
+        // Select start hour (H24 format) : 10h30
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(10,30));
+
+        // Confirm selection
+        onView(withText("OK"))
+                .perform(click());
+
+
     }
 }

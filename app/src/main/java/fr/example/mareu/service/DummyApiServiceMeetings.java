@@ -45,9 +45,9 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
     public List<Meeting> filterDateHour(Date beginDate, Date endDate) {
         List<Meeting> filteredMeetings = new ArrayList<>();
 
-        for(Meeting m : meetings){
-           // check que la date "m" est entre les 2 date debut/fin
-            if(m.getDate().after(beginDate) && m.getDate().before(endDate)){
+        for (Meeting m : meetings) {
+            // check que la date "m" est entre les 2 date debut/fin
+            if (m.getDate().after(beginDate) && m.getDate().before(endDate)) {
                 filteredMeetings.add(m);
             }
         }
@@ -58,17 +58,12 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
     public List<Meeting> filterRooms(List<Room> rooms) {
         List<Meeting> filteredMeetings = new ArrayList<>();
 
-        for(Meeting m : meetings){
-            if(rooms.contains(m.getRoom())){
+        for (Meeting m : meetings) {
+            if (rooms.contains(m.getRoom())) {
                 filteredMeetings.add(m);
             }
         }
         return filteredMeetings;
     }
-
-    @Override
-    public List<Meeting> withoutFilter() {
-        return meetings;
-    }
-}
+ }
 

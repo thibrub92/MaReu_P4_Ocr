@@ -19,14 +19,10 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 
     private List<Meeting> mListMeeting;
     private Context mContext;
-    private List<Room> filterRooms = new ArrayList<>();
-    //private boolean[] roomFiltersSelected = new boolean[8];
-
 
     public MeetingListAdapter(List<Meeting> listMeeting, Context context) {
         mListMeeting = listMeeting;
         mContext = context;
-        filterRooms = filterRooms;
     }
 
     @NonNull
@@ -43,7 +39,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
         StringBuilder workmateString = new StringBuilder();
 
         for (Workmate w : workmateList) {
-            workmateString.append(w.getEmail()).append(" , ");
+            workmateString.append(w.getEmail()).append(", ");
         }
 
         StringBuilder titleString = new StringBuilder();

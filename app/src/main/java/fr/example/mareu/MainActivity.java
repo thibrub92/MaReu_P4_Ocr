@@ -33,7 +33,6 @@ import fr.example.mareu.service.ApiServiceMeetings;
 import fr.example.mareu.DI.DI;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -174,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Calendar mcurrentDate = Calendar.getInstance();
 
-                int mYear= mcurrentDate.get(Calendar.YEAR);
-                int mMonth= mcurrentDate.get(Calendar.MONTH);
-                int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
+                int mYear = mcurrentDate.get(Calendar.YEAR);
+                int mMonth = mcurrentDate.get(Calendar.MONTH);
+                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog mDatePicker;
                 mDatePicker = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
