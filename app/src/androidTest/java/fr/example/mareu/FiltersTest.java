@@ -7,14 +7,37 @@ import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import android.widget.DatePicker;
 import androidx.test.espresso.contrib.PickerActions;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.internal.platform.app.ActivityLifecycleTimeout;
+import androidx.test.rule.ActivityTestRule;
 
+import org.hamcrest.Matchers;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4.class)
 public class FiltersTest {
 
     private MainActivity mainActivity;
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule =
+            new ActivityTestRule<>(MainActivity.class);
+
+    @Before
+    public void setUp() {
+        mainActivity = mActivityRule.getActivity();
+        assertThat(mainActivity, notNullValue());
+    }
 
     @Test
     public void checkFilterDates() {
@@ -23,7 +46,7 @@ public class FiltersTest {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
         // Click on "Filter by date"
-        onView(withText(mainActivity.getString(R.id.trier_date)))
+        onView(withId(R.id.trier_date))
                 .perform(click());
 
         // Click on TextInputEditText "Du"
