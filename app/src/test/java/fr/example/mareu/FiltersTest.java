@@ -1,53 +1,88 @@
 package fr.example.mareu;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import android.widget.DatePicker;
+import androidx.test.espresso.contrib.PickerActions;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import fr.example.mareu.DI.DI;
-import fr.example.mareu.model.Meeting;
-import fr.example.mareu.model.Room;
-import fr.example.mareu.service.ApiServiceMeetings;
-import fr.example.mareu.service.ApiServiceRoom;
-import fr.example.mareu.service.ApiServiceWorkMate;
-import fr.example.mareu.service.DummyApiServiceMeetings;
 
 public class FiltersTest {
 
-    private DummyApiServiceMeetings mDummyApiServiceMeetings;
-
-    public class DummyApiServiceReunionsTest {
-        private ApiServiceRoom serviceRoom;
-        private ApiServiceMeetings serviceMeetings;
-        private ApiServiceWorkMate serviceWorkMate;
-
-        private int ITEMS_COUNT = 24;
-        private int ITEMS_COUNT_SALLE = 4;
-        private int ITEMS_COUNT_DATE = 12;
-        private int ITEMS_COUNT_SALLE_DATE = 2;
-
-        private String filterDate = "31/01/2022";
-
-        @Before
-        public void setup() {
-
-//            ApiServiceRoom = DI.getNewInstanceServiceMeeting();
-//            ApiServiceMeetings = DI.getApiServiceMeetings().createMeeting(Meeting);
-//
-        }
-
+    private MainActivity mainActivity;
 
     @Test
-    public void filterRooms() {
-        List<Room> salles = ApiServiceRoom.getRoomList().subList(0, 2);
-        List<Meeting> meetings = mDummyApiServiceMeetings.getMeetingList();
-        List<Meeting> meeting = mDummyApiServiceMeetings.filterRooms(meetings, );
-        assertEquals(meeting.size(), meeting);
+    public void checkFilterDates() {
+
+        // open menu
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        // Click on "Filter by date"
+        onView(withText(mainActivity.getString(R.id.trier_date)))
+                .perform(click());
+
+        // Click on TextInputEditText "Du"
+        onView(withId(R.id.input_edit_filter_start_date))
+                .perform(click());
+
+        // Select start date
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 01, 28));
+
+        // Confirm start date
+        onView(withText("OK"))
+                .perform(click());
+
+        // Click on TextInputEditText "Au"
+        onView(withId(R.id.input_edit_filter_end_date))
+                .perform(click());
+
+        // Select end date
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 01, 30));
+
+        // Confirm start date
+        onView(withText("OK"))
+                .perform(click());
+
+        // Confirm filter
+        onView(withText("YES"))
+                .perform(click());
+
+        // Reset filter
+        onView(withId(R.id.without_filter))
+                .perform(click());
     }
-}
+
+    @Test
+    public void checkFilterRooms() {
+
+        // Open menu
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        // Click on "Filter room"
+        onView(withText(mainActivity.getString(R.id.trier_rooms)))
+                .perform(click());
+
+        // Selected rooms
+        onView(withId(R.string.Mario))
+                .perform(click());
+        onView(withId(R.string.Luigi))
+                .perform(click());
+        onView(withId(R.string.Yoshi))
+                .perform(click());
+
+        // Confirm filter
+        onView(withText("YES"))
+                .perform(click());
+
+        // Reset filter
+        onView(withId(R.id.without_filter))
+                .perform(click());
+    }
 }
