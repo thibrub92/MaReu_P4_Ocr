@@ -15,15 +15,17 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.PickerActions;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import fr.example.mareu.DI.DI;
 
-
+@RunWith(AndroidJUnit4.class)
 public class AddMeetingTest {
-
-
 
     private int ITEM_MEETING_COUNT;
     @Before
@@ -44,7 +46,7 @@ public class AddMeetingTest {
     }
 
     @Test
-    public void checkIfClickOnParticipants() {
+    public void checkClickOnParticipants() {
 
         onView(withId(R.id.button_selectedParticipant))
                 .perform(click());
@@ -160,8 +162,5 @@ public class AddMeetingTest {
 //VALIDATION
         onView(withId(R.id.ok_button))
                 .perform(click());
-// CHECK AJOUT REUNION
-//        onView(withId(R.id.recycler_meeting))
-//                .check(???(ITEM_MEETING_COUNT+1));
     }
 }

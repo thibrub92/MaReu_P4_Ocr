@@ -8,38 +8,28 @@
     android:paddingEnd="20dp"
     android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <Button
         android:id="@+id/input_filter_date_start"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
         android:hint="Du :"
         app:boxBackgroundColor="#ECECF1"
-        android:layout_marginTop="150dp">
+        android:layout_marginTop="150dp"
+        android:inputType="time"
+        android:backgroundTint="@color/violet">
+    </Button>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_edit_filter_start_date"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:cursorVisible="false"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_filter_date_end_"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/input_filter_date_end"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
         android:hint="Au :"
-        app:boxBackgroundColor="#ECECF1">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_edit_filter_end_date"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:cursorVisible="false"
-            android:layout_marginTop="20dp"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        app:boxBackgroundColor="#ECECF1"
+        android:layout_marginTop="50dp"
+        android:inputType="time"
+        android:backgroundTint="@color/violet">
+    </Button>
 
 </LinearLayout>

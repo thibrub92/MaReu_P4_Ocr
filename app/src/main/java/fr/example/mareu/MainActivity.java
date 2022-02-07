@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initList(List<Meeting> meetingList) {
+    private void initList(List <Meeting> meetingList) {
         binding.recyclerMeeting.setAdapter(new MeetingListAdapter(meetingList, this));
     }
 
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         boolean[] booleanList = new boolean[Room.values().length];
         int i = 0;
 
-
         for (Room r : Room.values()) {
             roomList[r.ordinal()] = getString(r.getNameRes());
             i++;
@@ -165,8 +164,8 @@ public class MainActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.filter_date_hour, null);
         builder.setView(view);
         builder.setTitle("Choisir une période");
-        EditText beginEditDate = view.findViewById(R.id.input_edit_filter_start_date);
-        EditText endEditDate = view.findViewById(R.id.input_edit_filter_end_date);
+        Button beginEditDate = view.findViewById(R.id.input_filter_date_start); // input_edit_filter_start_date
+        Button endEditDate = view.findViewById(R.id.input_filter_date_end);     // input_edit_filter_end_date
 
         beginEditDate.setOnClickListener(new View.OnClickListener() {
             @Override
