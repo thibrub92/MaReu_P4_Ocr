@@ -1,16 +1,17 @@
+
 <resources>
     <string name="app_name">Mareu</string>
-    <string name="Peach">peach</string>
+    <string name="Peach">Peach</string>
     <string name="Luigi">Luigi</string>
-    <string name="Daidy">daidy</string>
-    <string name="Wario">wario</string>
-    <string name="Yoshi">yoshi</string>
-    <string name="Bowser">bowser</string>
-    <string name="Mario">mario</string>
-    <string name="Goomba">goomba</string>
-    <string name="MaReu">MaReu</string>
     <string name="Daisy">Daisy</string>
+    <string name="Wario">Wario</string>
+    <string name="Yoshi">Yoshi</string>
+    <string name="Bowser">Bowser</string>
+    <string name="Mario">Mario</string>
+    <string name="Goomba">Goomba</string>
+    <string name="MaReu">MaReu</string>
     <string name="date_filter">Trier par dates</string>
     <string name="hour_filter">Trier par heures</string>
     <string name="no_filter">Sans filtre</string>
+    <string name="room_filter">Trier par salles</string>
 </resources>

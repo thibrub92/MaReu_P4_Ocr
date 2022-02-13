@@ -22,7 +22,7 @@ public class FilterTestUni {
     }
 
     @Test
-    public void filterRoomWithSuccess(){
+    public void filterRoomWithSuccess() {
 
         // Initialize
         filterTestUni.initList();

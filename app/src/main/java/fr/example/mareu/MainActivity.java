@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 List<Meeting> filteredMeetings = apiServiceMeetings.filterRooms(selectedRooms);

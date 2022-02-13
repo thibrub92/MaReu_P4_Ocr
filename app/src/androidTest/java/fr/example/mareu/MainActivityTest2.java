@@ -4,13 +4,9 @@ package fr.example.mareu;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
-import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
@@ -36,55 +32,27 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AddMeetingTest {
+public class MainActivityTest2 {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void addMeetingTest() {
-        // Go add meeting view
-        onView(withId(R.id.add_meeting)).perform(click());
+    public void mainActivityTest2() {
 
-        // Set subject
-        onView(withId(R.id.input_subject)).perform(replaceText("sujet test "), closeSoftKeyboard());
 
-        //Selected participants
-        onView(withId(R.id.button_selectedParticipant)).perform(click());
-
-        DataInteraction appCompatCheckedTextView = onData(anything())
-                .inAdapterView(allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+        ViewInteraction materialButton = onView(
+                allOf(withId(R.id.input_time_button),
                         childAtPosition(
-                                withClassName(is("android.widget.FrameLayout")),
-                                0)))
-                .atPosition(0);
-        appCompatCheckedTextView.perform(click());
-
-        DataInteraction appCompatCheckedTextView2 = onData(anything())
-                .inAdapterView(allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                        childAtPosition(
-                                withClassName(is("android.widget.FrameLayout")),
-                                0)))
-                .atPosition(1);
-        appCompatCheckedTextView2.perform(click());
-
-        onView(withText("OK")).perform(scrollTo(), click());
-
-        // Selected rooms
-        onView(withId(R.id.spinner_room)).perform(click());
-
-        DataInteraction materialTextView = onData(anything())
-                .inAdapterView(childAtPosition(
-                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
-                        0))
-                .atPosition(1);
-        materialTextView.perform(click());
-
-        // Selected time
-        onView(withId(R.id.input_time_button)).perform(click());
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        materialButton.perform(click());
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(android.R.id.button1),
+                allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
@@ -92,10 +60,17 @@ public class AddMeetingTest {
                                 3)));
         materialButton2.perform(scrollTo(), click());
 
-        // Selected date
-        onView(withId(R.id.input_date_button)).perform(click());
+        ViewInteraction materialButton3 = onView(
+                allOf(withId(R.id.input_date_button),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                6),
+                        isDisplayed()));
+        materialButton3.perform(click());
 
-        ViewInteraction materialTextView1 = onView(
+        ViewInteraction materialTextView = onView(
                 allOf(withClassName(is("com.google.android.material.textview.MaterialTextView")), withText("2022"),
                         childAtPosition(
                                 childAtPosition(
@@ -103,7 +78,15 @@ public class AddMeetingTest {
                                         0),
                                 0),
                         isDisplayed()));
-        materialTextView1.perform(click());
+        materialTextView.perform(click());
+
+        DataInteraction materialTextView2 = onData(anything())
+                .inAdapterView(allOf(withClassName(is("android.widget.YearPickerView")),
+                        childAtPosition(
+                                withClassName(is("com.android.internal.widget.DialogViewAnimator")),
+                                1)))
+                .atPosition(123);
+        materialTextView2.perform(scrollTo(), click());
 
         DataInteraction materialTextView3 = onData(anything())
                 .inAdapterView(allOf(withClassName(is("android.widget.YearPickerView")),
@@ -121,9 +104,6 @@ public class AddMeetingTest {
                                         0),
                                 3)));
         materialButton4.perform(scrollTo(), click());
-
-        // valid add meeting
-        onView(withId(R.id.ok_button)).perform(click());
     }
 
     private static Matcher<View> childAtPosition(

@@ -1,5 +1,6 @@
 package fr.example.mareu;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -9,13 +10,21 @@ import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import static fr.example.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
+
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.DatePicker;
 
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.PickerActions;
@@ -24,8 +33,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.internal.platform.app.ActivityLifecycleTimeout;
 import androidx.test.rule.ActivityTestRule;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,8 +71,6 @@ public class FiltersTest {
         onView(withId(R.id.input_filter_date_start))
                 .perform(click());
 
-        onView(isRoot()).perform(waitFor(2000));
-
         // Select start date
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
                 .perform(PickerActions.setDate(2022, 01, 28));
@@ -73,8 +82,6 @@ public class FiltersTest {
         // Click on TextInputEditText "Au"
         onView(withId(R.id.input_filter_date_end))
                 .perform(click());
-
-        onView(isRoot()).perform(waitFor(2000));
 
         // Select end date
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
@@ -96,29 +103,40 @@ public class FiltersTest {
 
     @Test
     public void checkFilterRooms() {
+        onView(withId(R.id.recycler_meeting)).check(withItemCount(4));
 
         // Open menu
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
         // Click on "Filter room"
-        onView(withText(mainActivity.getString(R.id.trier_rooms)))
+        onView(anyOf(withText(R.string.room_filter), withId(R.id.trier_rooms)))
                 .perform(click());
 
         // Selected rooms
-        onView(withId(R.string.Mario))
-                .perform(click());
-        onView(withId(R.string.Luigi))
-                .perform(click());
-        onView(withId(R.string.Yoshi))
-                .perform(click());
+        DataInteraction appCompatCheckedTextView = onData(anything())
+                .inAdapterView(allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+                        childAtPosition(
+                                withClassName(is("android.widget.FrameLayout")),
+                                0)))
+                .atPosition(0);
+        appCompatCheckedTextView.perform(click());
+
+        DataInteraction appCompatCheckedTextView2 = onData(anything())
+                .inAdapterView(allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
+                        childAtPosition(
+                                withClassName(is("android.widget.FrameLayout")),
+                                0)))
+                .atPosition(2);
+        appCompatCheckedTextView2.perform(click());
+
+
 
         // Confirm filter
-        onView(withText("YES"))
+        onView(withText("VALIDER"))
                 .perform(click());
 
-        // Reset filter
-        onView(withId(R.id.without_filter))
-                .perform(click());
+        onView(withId(R.id.recycler_meeting)).check(withItemCount(2));
+
     }
 
     public static ViewAction waitFor (final long millis) {
@@ -137,6 +155,25 @@ public class FiltersTest {
             public void perform(UiController uiController, View view) {
 
                 uiController.loopMainThreadForAtLeast(millis);
+            }
+        };
+    }
+
+    private static Matcher<View> childAtPosition(
+            final Matcher<View> parentMatcher, final int position) {
+
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
     }

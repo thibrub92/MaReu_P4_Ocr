@@ -11,7 +11,7 @@
 
         <item android:id="@+id/trier_rooms"
             app:showAsAction="never"
-            android:title="Trier par salles"/>
+            android:title="@string/room_filter"/>
 
         <item android:id="@+id/without_filter"
             app:showAsAction="never"
