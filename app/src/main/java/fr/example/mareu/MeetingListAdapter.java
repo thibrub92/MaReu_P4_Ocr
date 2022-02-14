@@ -1,6 +1,5 @@
 package fr.example.mareu;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import org.greenrobot.eventbus.EventBus;
-import java.util.ArrayList;
 import java.util.List;
 import fr.example.mareu.event.DeleteMeetingEvent;
 import fr.example.mareu.model.Meeting;
-import fr.example.mareu.model.Room;
 import fr.example.mareu.model.Workmate;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHolder> {

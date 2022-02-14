@@ -4,7 +4,6 @@ package fr.example.mareu.model;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
-
 import fr.example.mareu.R;
 
 public enum Room{
@@ -25,10 +24,10 @@ public enum Room{
     @ColorRes
     public int colorRes;
 
-    private Room(@StringRes int nameRes, @DrawableRes int iconRes, @ColorRes int colorRes){
-        this.nameRes= nameRes;
-        this.iconRes=iconRes;
-        this.colorRes=colorRes; }
+    private Room(@StringRes int nameRes, @DrawableRes int iconRes, @ColorRes int colorRes) {
+        this.nameRes = nameRes;
+        this.iconRes = iconRes;
+        this.colorRes = colorRes; }
 
     @StringRes
     public int getNameRes(){

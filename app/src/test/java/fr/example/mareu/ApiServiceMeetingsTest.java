@@ -1,44 +1,24 @@
 package fr.example.mareu;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
-import android.widget.DatePicker;
-
-import androidx.test.espresso.contrib.PickerActions;
-
-import org.hamcrest.Matchers;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import fr.example.mareu.DI.DI;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
-import fr.example.mareu.model.Workmate;
 import fr.example.mareu.service.ApiServiceMeetings;
-import fr.example.mareu.service.ApiServiceWorkMate;
-import fr.example.mareu.service.DummyApiServiceMeetings;
 import fr.example.mareu.service.DummyMeetingsGenerator;
-import fr.example.mareu.service.DummyWorkMatesGenerator;
 
 public class ApiServiceMeetingsTest {
     private ApiServiceMeetings apiServiceMeetings;
-
 
     @Before
     public void setUp() {
@@ -62,7 +42,7 @@ public class ApiServiceMeetingsTest {
     @Test
     public void createMeetingWithSuccess() {
         int listSize = apiServiceMeetings.getMeetingList().size();
-        Meeting meetingAdd = new Meeting ("sujet test", new ArrayList<>(), Room.LUIGI, new Date());
+        Meeting meetingAdd = new Meeting("sujet test", new ArrayList<>(), Room.LUIGI, new Date());
         apiServiceMeetings.createMeeting(meetingAdd);
         assertTrue(apiServiceMeetings.getMeetingList().contains(meetingAdd));
         assertEquals(listSize +1, apiServiceMeetings.getMeetingList().size());

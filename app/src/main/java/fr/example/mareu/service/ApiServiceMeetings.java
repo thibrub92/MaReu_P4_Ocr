@@ -13,9 +13,9 @@ public interface ApiServiceMeetings {
 
     void deleteMeetingItem(Meeting meeting);
 
-    boolean isMeetingCanBeCreated(Date date , Room room);
+    boolean isMeetingCanBeCreated(Date date, Room room);
 
-    List<Meeting> filterDateHour (Date beginDate , Date EndDate);
+    List<Meeting> filterDateHour (Date beginDate, Date EndDate);
 
     List<Meeting> filterRooms (List<Room> rooms);
 }

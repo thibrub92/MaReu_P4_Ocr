@@ -1,7 +1,5 @@
 package fr.example.mareu;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -12,14 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import java.util.List;
-import java.util.Locale;
 import fr.example.mareu.DI.DI;
 import fr.example.mareu.databinding.ActivityCreateMeetingBinding;
-
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
 import fr.example.mareu.model.Workmate;
@@ -35,7 +31,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private ApiServiceWorkMate apiServiceWorkMate;
     private List<Workmate> workMateList = new ArrayList<>();
     private List<Workmate> presentWorkmateList = new ArrayList<>();
-    private Calendar selectedCalendar= Calendar.getInstance();
+    private Calendar selectedCalendar = Calendar.getInstance();
 
 
     @Override
@@ -51,7 +47,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Calendar mcurrentDate = Calendar.getInstance();
-
                 int mYear= mcurrentDate.get(Calendar.YEAR);
                 int mMonth= mcurrentDate.get(Calendar.MONTH);
                 int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
@@ -60,9 +55,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 mDatePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        selectedCalendar.set(Calendar.YEAR,year);
-                        selectedCalendar.set(Calendar.MONTH,month);
-                        selectedCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        selectedCalendar.set(Calendar.YEAR, year);
+                        selectedCalendar.set(Calendar.MONTH, month);
+                        selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         binding.inputDateButton.setText(DateTimeConverter.getFormattedDate(year, month, dayOfMonth));
                     }
                 }, mYear, mMonth, mDay);
@@ -74,17 +69,17 @@ public class CreateMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    TimePickerDialog mTimePicker;
-                    mTimePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                            selectedCalendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                            selectedCalendar.set(Calendar.MINUTE,minute);
-                            binding.inputTimeButton.setText(DateTimeConverter.getFormattedTime(hourOfDay, minute));
-                        }
-                    },9,0,true);
-                    mTimePicker.show();
-                }
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        selectedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        selectedCalendar.set(Calendar.MINUTE, minute);
+                        binding.inputTimeButton.setText(DateTimeConverter.getFormattedTime(hourOfDay, minute));
+                    }
+                },9,0,true);
+                mTimePicker.show();
+            }
         });
 
         workMateList = apiServiceWorkMate.getWorkmateList();
@@ -96,7 +91,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
             }
         });
 
-        binding.spinnerRoom.setAdapter(new ArrayAdapter<Room>(this, android.R.layout.simple_list_item_1 , Room.values()));
+        binding.spinnerRoom.setAdapter(new ArrayAdapter<Room>(this, android.R.layout.simple_list_item_1, Room.values()));
 
         binding.okButton.setOnClickListener(new View.OnClickListener() {
 
@@ -123,40 +118,40 @@ public class CreateMeetingActivity extends AppCompatActivity {
     }
 
     private boolean canCreateMeeting(){
-        //  Vérification que tous les champs sont remplis
 
-        if(binding.inputSubject.getText().toString().isEmpty()){
-            Toast.makeText(this,"*Sujet Obligatoire",Toast.LENGTH_SHORT).show();
+        // Checking that all fields are filled in
+        if(binding.inputSubject.getText().toString().isEmpty()) {
+            Toast.makeText(this, "*Sujet Obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(binding.spinnerRoom.getAdapter().isEmpty()){
-            Toast.makeText(this,"*Choix salle obligatoire",Toast.LENGTH_SHORT).show();
+        if(binding.spinnerRoom.getAdapter().isEmpty()) {
+            Toast.makeText(this, "*Choix salle obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(presentWorkmateList.isEmpty()){
-            Toast.makeText(this,"*Choisir participants",Toast.LENGTH_SHORT).show();
+        if(presentWorkmateList.isEmpty()) {
+            Toast.makeText(this, "*Choisir participants", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(binding.inputDateButton.getText().toString().isEmpty()){
-            Toast.makeText(this,"*date obligatoire",Toast.LENGTH_SHORT).show();
+        if(binding.inputDateButton.getText().toString().isEmpty()) {
+            Toast.makeText(this, "*date obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (binding.inputTimeButton.getText().toString().isEmpty()){
-            Toast.makeText(this,"*heure obligatoire",Toast.LENGTH_SHORT).show();
+        if (binding.inputTimeButton.getText().toString().isEmpty()) {
+            Toast.makeText(this, "*heure obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(selectedCalendar.getTimeInMillis()< Calendar.getInstance().getTimeInMillis()){
-            Toast.makeText(this,"*Choisir une date non intérieur",Toast.LENGTH_SHORT).show();
+        if(selectedCalendar.getTimeInMillis()< Calendar.getInstance().getTimeInMillis()) {
+            Toast.makeText(this, "*Choisir une date non intérieur", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(!isRoomAvailable()){
-            Toast.makeText(this,"*Salle non disponible",Toast.LENGTH_SHORT).show();
+        if(!isRoomAvailable()) {
+            Toast.makeText(this, "*Salle non disponible", Toast.LENGTH_SHORT).show();
             return false;
         }
         return  true;
     }
 
-    private boolean isRoomAvailable(){
+    private boolean isRoomAvailable() {
         return apiServiceMeetings.isMeetingCanBeCreated(
                 selectedCalendar.getTime(),
                 (Room) binding.spinnerRoom.getSelectedItem());
@@ -166,23 +161,23 @@ public class CreateMeetingActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choisir participants");
 
-        String[] emailList = new String [workMateList.size()] ;
-        boolean[] booleanList = new boolean [workMateList.size()] ;
+        String[] emailList = new String [workMateList.size()];
+        boolean[] booleanList = new boolean [workMateList.size()];
 
-        for (int i =0 ; i < workMateList.size(); i++){
+        for (int i = 0; i < workMateList.size(); i++) {
             Workmate workmate = workMateList.get(i);
-            emailList[i] = workmate.getEmail(); // on recup l'email pour chaque w de la liste
+            emailList[i] = workmate.getEmail();
             boolean isAlreadyInvited = presentWorkmateList.contains(workmate);
-            booleanList[i] = isAlreadyInvited ;
+            booleanList[i] = isAlreadyInvited;
         }
 
-        builder.setMultiChoiceItems(emailList,booleanList, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(emailList, booleanList, new DialogInterface.OnMultiChoiceClickListener() {
 
             @Override
             public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
                 Workmate workmate = workMateList.get(index);
 
-                if (isChecked) {
+                if(isChecked) {
                     presentWorkmateList.add(workmate);
                 } else {
                     presentWorkmateList.remove(workmate); }
@@ -195,7 +190,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 StringBuilder builder = new StringBuilder();
 
-                for(Workmate w : presentWorkmateList){
+                for(Workmate w : presentWorkmateList) {
                     builder.append(w.getFirstName()).append(" ").append(w.getName()).append(" - ");
                 }
                 binding.txtParticipant.setText(builder.toString());

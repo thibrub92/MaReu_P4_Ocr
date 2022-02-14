@@ -1,6 +1,5 @@
 package fr.example.mareu.DI;
 
-
 import fr.example.mareu.service.ApiServiceMeetings;
 import fr.example.mareu.service.ApiServiceWorkMate;
 import fr.example.mareu.service.DummyApiServiceMeetings;

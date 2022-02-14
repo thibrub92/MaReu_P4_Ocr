@@ -15,17 +15,14 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -33,7 +30,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import fr.example.mareu.DI.DI;
 import fr.example.mareu.service.ApiServiceMeetings;
 
@@ -49,7 +45,6 @@ public class AddMeetingTest {
 
     @Before
     public void setUp() {
-
         apiServiceMeetings = DI.getApiServiceMeetings();
         itemCount = apiServiceMeetings.getMeetingList().size();
     }
@@ -132,7 +127,7 @@ public class AddMeetingTest {
         onView(withId(R.id.ok_button)).perform(click());
 
         // Check add meeting into the list
-        assertEquals(itemCount + 1, apiServiceMeetings.getMeetingList().size() );
+        assertEquals(itemCount + 1, apiServiceMeetings.getMeetingList().size());
     }
 
     private static Matcher<View> childAtPosition(
@@ -141,7 +136,7 @@ public class AddMeetingTest {
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
+                description.appendText("Child at position" + position + "in parent");
                 parentMatcher.describeTo(description);
             }
 
@@ -149,7 +144,7 @@ public class AddMeetingTest {
             public boolean matchesSafely(View view) {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
+                        && view.equals(((ViewGroup)parent).getChildAt(position));
             }
         };
     }

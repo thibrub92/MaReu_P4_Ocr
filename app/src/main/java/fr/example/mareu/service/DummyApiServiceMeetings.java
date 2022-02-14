@@ -1,25 +1,8 @@
 package fr.example.mareu.service;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
-import android.widget.DatePicker;
-
-import androidx.test.espresso.contrib.PickerActions;
-
-import org.hamcrest.Matchers;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import fr.example.mareu.R;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
 
@@ -49,8 +32,8 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
             long timeDifference = meetingDate.getTime() - date.getTime();
             long differenceMinute = timeDifference / (1000 * 60);
 
-            if (differenceMinute > -60 && differenceMinute <= 59) {    // si même créneau horaire
-                if (m.getRoom() == room) {                            // Si même room
+            if (differenceMinute > -60 && differenceMinute <= 59) {    // if same slots hour
+                if (m.getRoom() == room) {                            // if same room
                     return false;
                 }
             }
@@ -63,7 +46,7 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
         List<Meeting> filteredMeetings = new ArrayList<>();
 
         for (Meeting m : meetings) {
-            // check que la date "m" est entre les 2 date debut/fin
+            // check if date "m" is between the 2 start/end dates
             if (m.getDate().after(beginDate) && m.getDate().before(endDate)) {
                 filteredMeetings.add(m);
             }

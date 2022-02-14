@@ -25,7 +25,5 @@ public class ApiServiceWorkmatesTest {
         List<Workmate> expectedListEmployees = DummyWorkMatesGenerator.WORKMATE_LAMZONE;
         assertThat(workmateList, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedListEmployees.toArray()));
     }
-
-
 }
 
