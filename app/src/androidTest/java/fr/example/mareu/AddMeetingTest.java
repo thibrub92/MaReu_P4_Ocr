@@ -5,17 +5,16 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,16 +29,30 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import fr.example.mareu.DI.DI;
+import fr.example.mareu.service.ApiServiceMeetings;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class AddMeetingTest {
 
+    private ApiServiceMeetings apiServiceMeetings;
+    private int itemCount;
+
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+    @Before
+    public void setUp() {
+
+        apiServiceMeetings = DI.getApiServiceMeetings();
+        itemCount = apiServiceMeetings.getMeetingList().size();
+    }
 
     @Test
     public void addMeetingTest() {
@@ -113,17 +126,13 @@ public class AddMeetingTest {
                 .atPosition(123);
         materialTextView3.perform(scrollTo(), click());
 
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                3)));
-        materialButton4.perform(scrollTo(), click());
+        onView(allOf(withId(android.R.id.button1), withText("OK"))).perform(scrollTo(), click());
 
         // valid add meeting
         onView(withId(R.id.ok_button)).perform(click());
+
+        // Check add meeting into the list
+        assertEquals(itemCount + 1, apiServiceMeetings.getMeetingList().size() );
     }
 
     private static Matcher<View> childAtPosition(

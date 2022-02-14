@@ -24,12 +24,12 @@ public abstract class DummyMeetingsGenerator {
             //new Meeting("sujet Goomba", DummyWorkMatesGenerator.generateWorkmate(), Room.GOOMBA, getDate(17,30))
     );
 
-    static List<Meeting> generateMeeting()
+    public static List<Meeting> generateMeeting()
     {
         return new ArrayList<>(MEETING_LAMZONE);
     }
 
-    static Date getDate ( int hour, int minute){
+    public static Date getDate ( int hour, int minute){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);

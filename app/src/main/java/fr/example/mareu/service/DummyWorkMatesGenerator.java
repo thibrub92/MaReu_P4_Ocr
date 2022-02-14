@@ -25,7 +25,7 @@ public abstract class DummyWorkMatesGenerator {
             new Workmate("Thibaut", "Courtois", "IdCol-14", "Thibaut.Courtois@Lamzone.com")
     );
 
-    static List<Workmate> generateWorkmate() {
+    public static List<Workmate> generateWorkmate() {
         return new ArrayList<>(WORKMATE_LAMZONE);
     }
 }

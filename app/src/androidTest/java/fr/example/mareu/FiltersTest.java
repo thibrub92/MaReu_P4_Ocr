@@ -42,6 +42,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import fr.example.mareu.DI.DI;
+import fr.example.mareu.service.ApiServiceMeetings;
+
 @RunWith(AndroidJUnit4.class)
 public class FiltersTest {
 
@@ -94,11 +97,6 @@ public class FiltersTest {
         // Confirm filter
         onView(withText("VALIDER"))
                 .perform(click());
-
-        // CHECK NOMBRES DELEMENTS DANS LA LISTE
-        // Reset filter
-//        onView(withId(R.id.without_filter))
-//                .perform(click());
     }
 
     @Test
