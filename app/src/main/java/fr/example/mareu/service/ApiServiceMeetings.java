@@ -2,6 +2,7 @@ package fr.example.mareu.service;
 
 import java.util.Date;
 import java.util.List;
+
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
 
@@ -15,9 +16,9 @@ public interface ApiServiceMeetings {
 
     boolean isMeetingCanBeCreated(Date date, Room room);
 
-    List<Meeting> filterDateHour (Date beginDate, Date EndDate);
+    List<Meeting> filterDateHour(Date beginDate, Date EndDate);
 
-    List<Meeting> filterRooms (List<Room> rooms);
+    List<Meeting> filterRooms(List<Room> rooms);
 }
 
 

@@ -10,10 +10,10 @@ public class DI {
     private final static ApiServiceMeetings apiServiceMeetings = new DummyApiServiceMeetings();
     private final static ApiServiceWorkMate apiServiceWorkmate = new DummyApiServiceWorkMates();
 
-    public static ApiServiceMeetings getApiServiceMeetings(){
+    public static ApiServiceMeetings getApiServiceMeetings() {
         return apiServiceMeetings;
     }
-    public static ApiServiceWorkMate getApiServiceWorkMate(){
+    public static ApiServiceWorkMate getApiServiceWorkMate() {
         return apiServiceWorkmate;
     }
 }

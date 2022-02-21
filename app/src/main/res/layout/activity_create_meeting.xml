@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <EditText
         android:id="@+id/input_subject"
         android:layout_width="match_parent"
@@ -39,8 +38,7 @@
         android:padding="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_subject"
-        app:layout_constraintEnd_toEndOf="parent">
-    </Button>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txt_participant"
@@ -50,8 +48,7 @@
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_selectedParticipant">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/button_selectedParticipant" />
 
     <TextView
         android:id="@+id/txt_room_title"
@@ -82,8 +79,7 @@
         android:padding="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_room_title"
-        app:layout_constraintEnd_toEndOf="parent">
-    </androidx.appcompat.widget.AppCompatSpinner>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/input_time_button"
@@ -101,8 +97,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_room"
         app:layout_constraintEnd_toEndOf="parent"
-        android:timePickerMode="spinner">
-    </Button>
+        android:timePickerMode="spinner" />
 
     <Button
         android:id="@+id/input_date_button"
@@ -119,8 +114,7 @@
         android:drawableStart="@drawable/calendar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_time_button"
-        app:layout_constraintEnd_toEndOf="parent">
-    </Button>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ok_button"
@@ -131,7 +125,8 @@
         android:src="@drawable/valider"
         android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@null" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

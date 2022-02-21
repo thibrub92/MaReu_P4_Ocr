@@ -1,6 +1,7 @@
 package fr.example.mareu.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import fr.example.mareu.model.Meeting;
@@ -45,9 +46,21 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
     public List<Meeting> filterDateHour(Date beginDate, Date endDate) {
         List<Meeting> filteredMeetings = new ArrayList<>();
 
+        Calendar calendarBegin = Calendar.getInstance();
+        calendarBegin.setTime(beginDate);
+        calendarBegin.set(Calendar.HOUR_OF_DAY, 0);
+        calendarBegin.set(Calendar.MINUTE, 0);
+        calendarBegin.set(Calendar.SECOND, 0);
+
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarBegin.setTime(endDate);
+        calendarBegin.set(Calendar.HOUR_OF_DAY, 23);
+        calendarBegin.set(Calendar.MINUTE, 59);
+        calendarBegin.set(Calendar.SECOND, 59);
+
         for (Meeting m : meetings) {
             // check if date "m" is between the 2 start/end dates
-            if (m.getDate().after(beginDate) && m.getDate().before(endDate)) {
+            if (m.getDate().after(calendarBegin.getTime()) && m.getDate().before(calendarEnd.getTime())) {
                 filteredMeetings.add(m);
             }
         }

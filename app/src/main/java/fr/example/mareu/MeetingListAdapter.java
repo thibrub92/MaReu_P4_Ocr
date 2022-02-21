@@ -4,10 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+
+import fr.example.mareu.databinding.ActivityMainItemBinding;
 import fr.example.mareu.event.DeleteMeetingEvent;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Workmate;
@@ -24,9 +29,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 
     @NonNull
     public MeetingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_main_item, parent, false);
-        return new MeetingListViewHolder(view);
+        ActivityMainItemBinding binding = ActivityMainItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MeetingListViewHolder(binding);
     }
 
     @Override
@@ -46,14 +50,15 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
         titleString.append(" - ");
         titleString.append(mContext.getString(meeting.getRoom().getNameRes()));
 
-        holder.titleReunion.setText(titleString);
-        holder.itemViewMail.setText(workmateString);
-        holder.imageViewId.setImageResource(meeting.getRoom().iconRes);
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+        holder.binding.txtTitleMeeting.setText(titleString);
+        holder.binding.txtMailList.setText(workmateString);
+        holder.binding.imgAvatar.setImageResource(meeting.getRoom().iconRes);
+        holder.binding.imgDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new DeleteMeetingEvent(meeting)); }
+                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
+            }
         });
     }
 

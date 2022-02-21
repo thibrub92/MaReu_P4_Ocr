@@ -14,31 +14,44 @@ public class Workmate implements Serializable {
         this.mFirstName = firstName;
         this.mName = name;
         this.mId = id;
-        this.mEmail = email; }
+        this.mEmail = email;
+    }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return mFirstName;
     }
-    public void setFirstName(String firstName) {mFirstName = firstName;}
 
-    public String getName(){
+    public void setFirstName(String firstName) {
+        mFirstName = firstName;
+    }
+
+    public String getName() {
         return mName;
     }
-    public void setName(String name) {mName = name;}
 
-    public String getId(){
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public String getId() {
         return mId;
     }
-    public void setId(String id) {mId = id;}
 
-    public String getEmail(){
+    public void setId(String id) {
+        mId = id;
+    }
+
+    public String getEmail() {
         return mEmail;
     }
-    public void setEmail(String email) {mEmail = email;}
+
+    public void setEmail(String email) {
+        mEmail = email;
+    }
 
     @NonNull
     @Override
     public String toString() {
-        return mFirstName + mName + " (" + mEmail + ") " ;
+        return mFirstName + mName + " (" + mEmail + ") ";
     }
 }

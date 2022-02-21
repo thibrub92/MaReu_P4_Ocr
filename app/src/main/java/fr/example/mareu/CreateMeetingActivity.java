@@ -23,7 +23,6 @@ import fr.example.mareu.service.ApiServiceMeetings;
 import fr.example.mareu.service.ApiServiceWorkMate;
 import fr.example.mareu.utils.DateTimeConverter;
 
-
 public class CreateMeetingActivity extends AppCompatActivity {
 
     private ActivityCreateMeetingBinding binding;
@@ -32,7 +31,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private List<Workmate> workMateList = new ArrayList<>();
     private List<Workmate> presentWorkmateList = new ArrayList<>();
     private Calendar selectedCalendar = Calendar.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +45,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Calendar mcurrentDate = Calendar.getInstance();
-                int mYear= mcurrentDate.get(Calendar.YEAR);
-                int mMonth= mcurrentDate.get(Calendar.MONTH);
-                int mDay= mcurrentDate.get(Calendar.DAY_OF_MONTH);
+                int mYear = mcurrentDate.get(Calendar.YEAR);
+                int mMonth = mcurrentDate.get(Calendar.MONTH);
+                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog mDatePicker;
                 mDatePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -77,7 +75,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                         selectedCalendar.set(Calendar.MINUTE, minute);
                         binding.inputTimeButton.setText(DateTimeConverter.getFormattedTime(hourOfDay, minute));
                     }
-                },9,0,true);
+                }, 9, 0, true);
                 mTimePicker.show();
             }
         });
@@ -117,22 +115,22 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
     }
 
-    private boolean canCreateMeeting(){
+    private boolean canCreateMeeting() {
 
         // Checking that all fields are filled in
-        if(binding.inputSubject.getText().toString().isEmpty()) {
+        if (binding.inputSubject.getText().toString().isEmpty()) {
             Toast.makeText(this, "*Sujet Obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(binding.spinnerRoom.getAdapter().isEmpty()) {
+        if (binding.spinnerRoom.getAdapter().isEmpty()) {
             Toast.makeText(this, "*Choix salle obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(presentWorkmateList.isEmpty()) {
+        if (presentWorkmateList.isEmpty()) {
             Toast.makeText(this, "*Choisir participants", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(binding.inputDateButton.getText().toString().isEmpty()) {
+        if (binding.inputDateButton.getText().toString().isEmpty()) {
             Toast.makeText(this, "*date obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -140,15 +138,15 @@ public class CreateMeetingActivity extends AppCompatActivity {
             Toast.makeText(this, "*heure obligatoire", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(selectedCalendar.getTimeInMillis()< Calendar.getInstance().getTimeInMillis()) {
+        if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
             Toast.makeText(this, "*Choisir une date non intérieur", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(!isRoomAvailable()) {
+        if (!isRoomAvailable()) {
             Toast.makeText(this, "*Salle non disponible", Toast.LENGTH_SHORT).show();
             return false;
         }
-        return  true;
+        return true;
     }
 
     private boolean isRoomAvailable() {
@@ -161,8 +159,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choisir participants");
 
-        String[] emailList = new String [workMateList.size()];
-        boolean[] booleanList = new boolean [workMateList.size()];
+        String[] emailList = new String[workMateList.size()];
+        boolean[] booleanList = new boolean[workMateList.size()];
 
         for (int i = 0; i < workMateList.size(); i++) {
             Workmate workmate = workMateList.get(i);
@@ -177,27 +175,27 @@ public class CreateMeetingActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
                 Workmate workmate = workMateList.get(index);
 
-                if(isChecked) {
+                if (isChecked) {
                     presentWorkmateList.add(workmate);
                 } else {
-                    presentWorkmateList.remove(workmate); }
+                    presentWorkmateList.remove(workmate);
+                }
             }
         });
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 StringBuilder builder = new StringBuilder();
 
-                for(Workmate w : presentWorkmateList) {
+                for (Workmate w : presentWorkmateList) {
                     builder.append(w.getFirstName()).append(" ").append(w.getName()).append(" - ");
                 }
                 binding.txtParticipant.setText(builder.toString());
             }
         });
 
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton("Retour", null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }

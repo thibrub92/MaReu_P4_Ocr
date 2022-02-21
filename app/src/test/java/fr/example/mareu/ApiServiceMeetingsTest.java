@@ -45,7 +45,7 @@ public class ApiServiceMeetingsTest {
         Meeting meetingAdd = new Meeting("sujet test", new ArrayList<>(), Room.LUIGI, new Date());
         apiServiceMeetings.createMeeting(meetingAdd);
         assertTrue(apiServiceMeetings.getMeetingList().contains(meetingAdd));
-        assertEquals(listSize +1, apiServiceMeetings.getMeetingList().size());
+        assertEquals(listSize + 1, apiServiceMeetings.getMeetingList().size());
     }
 
     @Test

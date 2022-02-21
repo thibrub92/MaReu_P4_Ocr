@@ -17,8 +17,7 @@
         app:boxBackgroundColor="#ECECF1"
         android:layout_marginTop="150dp"
         android:inputType="time"
-        android:backgroundTint="@color/violet">
-    </Button>
+        android:backgroundTint="@color/violet" />
 
     <Button
         android:id="@+id/input_filter_date_end"
@@ -29,7 +28,6 @@
         app:boxBackgroundColor="#ECECF1"
         android:layout_marginTop="50dp"
         android:inputType="time"
-        android:backgroundTint="@color/violet">
-    </Button>
+        android:backgroundTint="@color/violet" />
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package fr.example.mareu.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import fr.example.mareu.model.Workmate;
 
 public abstract class DummyWorkMatesGenerator {

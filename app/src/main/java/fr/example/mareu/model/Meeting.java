@@ -16,7 +16,8 @@ public class Meeting implements Serializable {
         this.subject = subject;
         this.participants = participants;
         this.room = room;
-        this.date = date; }
+        this.date = date;
+    }
 
     public String getSubject() {
         return subject;
@@ -44,13 +45,13 @@ public class Meeting implements Serializable {
         return date;
     }
 
-    public String getFormattedDate(){
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getFormattedDate() {
         String mFormatHour = "HH'h'mm";
         SimpleDateFormat formatHour = new SimpleDateFormat(mFormatHour);
         return formatHour.format(this.date);
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

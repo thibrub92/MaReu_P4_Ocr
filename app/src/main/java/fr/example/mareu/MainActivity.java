@@ -1,9 +1,5 @@
 package fr.example.mareu;
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -16,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -25,12 +24,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import fr.example.mareu.DI.DI;
 import fr.example.mareu.databinding.ActivityMainBinding;
 import fr.example.mareu.event.DeleteMeetingEvent;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
-import fr.example.mareu.service.ApiServiceMeetings;
-import fr.example.mareu.DI.DI;
+import fr.example.mareu.service.ApiServiceMeetings;0
 
 public class MainActivity extends AppCompatActivity {
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
                 Room room = Room.values()[index];
 
-                if(isChecked) {
+                if (isChecked) {
                     selectedRooms.add(room);
                 } else {
                     selectedRooms.remove(room);
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-                        month = month +1;
+                        month = month + 1;
                         String date = String.format(Locale.getDefault(),
                                 "%02d/%02d/%d",
                                 dayOfMonth, month, year);
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-                        month = month +1;
+                        month = month + 1;
                         String date = String.format(Locale.getDefault(),
                                 "%02d/%02d/%d",
                                 dayOfMonth, month, year);
@@ -218,12 +217,14 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setPositiveButton("valider", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) { }
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
         });
 
         builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) { }
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
         });
 
         AlertDialog dialog = builder.create();
@@ -232,27 +233,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(beginEditDate.getText().toString().isEmpty()) {
-                    Toast.makeText(view.getContext(),"*Merci de choisir une date de début", Toast.LENGTH_SHORT).show();
-                }
-                else if(endEditDate.getText().toString().isEmpty()) {
-                    Toast.makeText(view.getContext(),"*Merci de choisir une date de fin", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                if (beginEditDate.getText().toString().isEmpty()) {
+                    Toast.makeText(view.getContext(), "*Merci de choisir une date de début", Toast.LENGTH_SHORT).show();
+                } else if (endEditDate.getText().toString().isEmpty()) {
+                    Toast.makeText(view.getContext(), "*Merci de choisir une date de fin", Toast.LENGTH_SHORT).show();
+                } else {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     try {
                         Date beginDate = dateFormat.parse(beginEditDate.getText().toString());
                         Date endDate = dateFormat.parse(endEditDate.getText().toString());
 
-                        if(endDate.after(beginDate)){
+                        if (endDate.after(beginDate)) {
                             List<Meeting> filteredMeetings = apiServiceMeetings.filterDateHour(beginDate, endDate);
                             initList(filteredMeetings);
                             dialog.dismiss();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(view.getContext(), "*Merci de choisir une date de debut avant la date de fin", Toast.LENGTH_SHORT).show();
                         }
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(view.getContext(), "*Format date non valide", Toast.LENGTH_SHORT).show();
                     }
                 }
