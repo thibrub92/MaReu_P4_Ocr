@@ -29,7 +29,7 @@ import fr.example.mareu.databinding.ActivityMainBinding;
 import fr.example.mareu.event.DeleteMeetingEvent;
 import fr.example.mareu.model.Meeting;
 import fr.example.mareu.model.Room;
-import fr.example.mareu.service.ApiServiceMeetings;0
+import fr.example.mareu.service.ApiServiceMeetings;
 
 public class MainActivity extends AppCompatActivity {
 

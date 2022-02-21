@@ -15,7 +15,7 @@
         <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverFlow</item>
     </style>
 
-    <style name="MyActionButtonOverFlow" parent="android:style/Widget.Holo.Light.ActionButton">
+    <style name="MyActionButtonOverFlow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
         <item name="android:src">@drawable/filter</item>
     </style>
 </resources>
