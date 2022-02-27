@@ -36,6 +36,7 @@ import fr.example.mareu.service.ApiServiceMeetings;
 @RunWith(AndroidJUnit4.class)
 public class AddMeetingTest {
 
+
     private ApiServiceMeetings apiServiceMeetings;
     private int itemCount;
 

@@ -38,6 +38,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import fr.example.mareu.DI.DI;
+import fr.example.mareu.service.ApiServiceMeetings;
+
 @RunWith(AndroidJUnit4.class)
 public class FiltersTest {
 
@@ -92,7 +95,6 @@ public class FiltersTest {
 
     @Test
     public void checkFilterRooms() {
-        onView(withId(R.id.recycler_meeting)).check(withItemCount(4));
 
         // Open menu
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
@@ -122,7 +124,7 @@ public class FiltersTest {
         onView(withText("VALIDER"))
                 .perform(click());
 
-        onView(withId(R.id.recycler_meeting)).check(withItemCount(2));
+        onView(withId(R.id.recycler_meeting)).check(withItemCount(1));
     }
 
     public static ViewAction waitFor(final long millis) {
