@@ -121,15 +121,12 @@ public class MainActivity extends AppCompatActivity {
         List<Room> selectedRooms = new ArrayList<>();
         String[] roomList = new String[Room.values().length];
         boolean[] booleanList = new boolean[Room.values().length];
-        int i = 0;
 
         for (Room r : Room.values()) {
             roomList[r.ordinal()] = getString(r.getNameRes());
-            i++;
         }
 
         builder.setMultiChoiceItems(roomList, booleanList, new DialogInterface.OnMultiChoiceClickListener() {
-
             @Override
             public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
                 Room room = Room.values()[index];

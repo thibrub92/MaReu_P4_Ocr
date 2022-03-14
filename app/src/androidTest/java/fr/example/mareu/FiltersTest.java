@@ -91,6 +91,8 @@ public class FiltersTest {
         // Confirm filter
         onView(withText("VALIDER"))
                 .perform(click());
+
+        onView(withId(R.id.recycler_meeting)).check(withItemCount(0));
     }
 
     @Test

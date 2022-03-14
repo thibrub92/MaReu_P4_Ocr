@@ -53,10 +53,10 @@ public class DummyApiServiceMeetings implements ApiServiceMeetings {
         calendarBegin.set(Calendar.SECOND, 0);
 
         Calendar calendarEnd = Calendar.getInstance();
-        calendarBegin.setTime(endDate);
-        calendarBegin.set(Calendar.HOUR_OF_DAY, 23);
-        calendarBegin.set(Calendar.MINUTE, 59);
-        calendarBegin.set(Calendar.SECOND, 59);
+        calendarEnd.setTime(endDate);
+        calendarEnd.set(Calendar.HOUR_OF_DAY, 23);
+        calendarEnd.set(Calendar.MINUTE, 59);
+        calendarEnd.set(Calendar.SECOND, 59);
 
         for (Meeting m : meetings) {
             // check if date "m" is between the 2 start/end dates
